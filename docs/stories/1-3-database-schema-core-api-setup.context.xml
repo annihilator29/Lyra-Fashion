@@ -1,0 +1,108 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.3</storyId>
+    <title>Database Schema &amp; Core API Setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-3-database-schema-core-api-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Backend Dev</asA>
+    <iWant>to set up the database and core API structure</iWant>
+    <soThat>we can store and retrieve application data</soThat>
+    <tasks>
+- [ ] Configure Supabase project connection. (AC: 1)
+  - [ ] Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.local`
+  - [ ] Install Supabase client: `npm install @supabase/ssr @supabase/supabase-js`
+- [ ] Implement Supabase client utilities. (AC: 6)
+  - [ ] Create `src/lib/supabase/server.ts` (using `createServerClient`)
+  - [ ] Create `src/lib/supabase/client.ts` (using `createBrowserClient`)
+- [ ] Create Database Schema via Migrations. (AC: 2, 3, 4)
+  - [ ] Initialize Supabase CLI locally (if not already): `npx supabase init`
+  - [ ] Create migration file: `npx supabase migration new init_schema`
+  - [ ] Define `profiles` table (extends auth.users)
+  - [ ] Define `products` table (including JSONB `transparency_data`)
+  - [ ] Enable RLS and add policies (e.g., Public read for products, Auth read/update for profiles)
+  - [ ] Apply migration locally or push to remote (depending on dev setup)
+- [ ] Generate TypeScript types.
+  - [ ] Run `npx supabase gen types typescript --project-id <id> > src/types/database.types.ts`
+- [ ] Implement Health Check API. (AC: 5)
+  - [ ] Create `src/app/api/health/route.ts`
+  - [ ] Return JSON: `{ status: 'ok', timestamp: ... }`
+- [ ] Verify connection and schema.
+  - [ ] Use a script or temporary page to fetch data from `products` (should be empty but successful)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Supabase project is connected via environment variables in `.env.local`.
+2. `profiles` table exists in the database with correct schema (id, email, full_name, avatar_url).
+3. `products` table exists in the database with correct schema (id, name, slug, description, price, images, category, transparency_data).
+4. Row Level Security (RLS) is enabled on both tables with appropriate policies.
+5. A health check API endpoint (`/api/health`) returns 200 OK and a timestamp.
+6. Supabase client helper (`src/lib/supabase/server.ts` or similar) is implemented for server-side usage.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>2.2 Data Models</section>
+        <snippet>Defines SQL schema for profiles (id, email, full_name, avatar_url) and products (id, name, slug, description, price, images, category, transparency_data).</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>2.3 APIs &amp; Interfaces</section>
+        <snippet>Health Check Endpoint: /api/health, GET, returns { status: "ok", timestamp: "..." }. Supabase Client Interface: createClient().</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Key Tables: profiles, products, product_variants, orders. Products table includes transparency_data (JSONB).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="@supabase/ssr" />
+        <package name="@supabase/supabase-js" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use Supabase for DB and Auth
+    - Enable RLS on all tables
+    - Use Server Actions or Route Handlers for API
+    - Store secrets in .env.local
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Health Check</name>
+      <kind>REST Endpoint</kind>
+      <signature>GET /api/health</signature>
+      <path>src/app/api/health/route.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Integration Tests: Verify DB connection and API endpoints manually.
+    </standards>
+    <locations>
+      src/app/api/health/route.ts
+    </locations>
+    <ideas>
+      - Curl /api/health to verify 200 OK
+      - Query products table via Supabase client to verify connection
+      - Check Supabase dashboard for table creation
+    </ideas>
+  </tests>
+</story-context>

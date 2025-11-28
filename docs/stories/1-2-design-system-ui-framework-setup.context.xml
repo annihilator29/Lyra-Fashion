@@ -1,0 +1,102 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>Design System &amp; UI Framework Setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-2-design-system-ui-framework-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Designer/Dev</asA>
+    <iWant>to establish the core design tokens and UI components</iWant>
+    <soThat>the application has a consistent look and feel matching the "Lyra Fashion" brand</soThat>
+    <tasks>
+- [ ] Install and initialize shadcn/ui. (AC: 4)
+  - [ ] Run `npx shadcn@latest init`
+  - [ ] Configure to use `src/components/ui` and `src/lib/utils.ts`
+- [ ] Configure Fonts using `next/font`. (AC: 3)
+  - [ ] Import `Inter` and `Playfair_Display` in `src/app/layout.tsx`
+  - [ ] Define CSS variables for fonts (e.g., `--font-sans`, `--font-serif`)
+- [ ] Update `tailwind.config.ts` and `globals.css` with "Organic Modern" theme. (AC: 1, 2)
+  - [ ] Define colors: Primary Bg (`#F9F8F6`), Secondary Bg (`#EBE9E4`), Text (`#2C2C2C`), Accent (`#5D6D5B`), Border (`#D8D6D1`)
+  - [ ] Map Tailwind colors (`background`, `foreground`, `primary`, etc.) to these variables
+- [ ] Install core UI components. (AC: 4)
+  - [ ] `npx shadcn@latest add button input card separator`
+  - [ ] Verify border radius settings (4px or 0px per spec)
+- [ ] Create verification page. (AC: 5)
+  - [ ] Create `src/app/design-system/page.tsx`
+  - [ ] Add examples of Typography, Buttons, Inputs, and Cards
+- [ ] Verify responsiveness and accessibility (contrast).
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Tailwind theme is configured with "Organic Modern" colors and fonts as per UX Specification.
+2. Global styles (CSS variables) are defined in `globals.css` to support the theme.
+3. Fonts (Inter for body, Playfair Display for headings) are configured and applied.
+4. Basic shadcn/ui components (Button, Input, Card, Separator) are installed and styled.
+5. A temporary `/design-system` route exists to visually verify the design system implementation.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>Lyra Fashion UX Design Specification</title>
+        <section>3.1 Color System</section>
+        <snippet>Theme: Organic Modern. Primary Bg: #F9F8F6, Secondary Bg: #EBE9E4, Text: #2C2C2C, Accent: #5D6D5B, Border: #D8D6D1. Typography: Playfair Display (Headings), Inter (Body).</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>Lyra Fashion UX Design Specification</title>
+        <section>6.1 Component Strategy</section>
+        <snippet>Foundation: shadcn/ui. Radius: 0.25rem (4px) or 0px. Shadows: Ultra-subtle or none.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>1.2 In-Scope</section>
+        <snippet>Design System: Configuration of global styles, typography, colors, and core UI components (shadcn/ui).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet, this story sets it up -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="tailwindcss" version="4.x" />
+        <package name="shadcn-ui" version="latest" />
+        <package name="lucide-react" />
+        <package name="class-variance-authority" />
+        <package name="clsx" />
+        <package name="tailwind-merge" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use "Organic Modern" color palette exactly
+    - Use Inter and Playfair Display fonts via next/font
+    - Use shadcn/ui components
+    - Components must be in src/components/ui
+  </constraints>
+  <interfaces>
+    <!-- UI Components are the interface here -->
+  </interfaces>
+  <tests>
+    <standards>
+      Visual verification via /design-system page.
+    </standards>
+    <locations>
+      src/app/design-system/page.tsx
+    </locations>
+    <ideas>
+      - Check color contrast ratios
+      - Verify font loading and application
+      - Check component responsiveness
+    </ideas>
+  </tests>
+</story-context>

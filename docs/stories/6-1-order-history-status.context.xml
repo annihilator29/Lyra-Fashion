@@ -1,0 +1,99 @@
+<story-context id="6-1-order-history-status" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>6.1</storyId>
+    <title>Order History & Status</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-1-order-history-status.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>view my past orders and their current status</iWant>
+    <soThat>I can track my purchases and review my history</soThat>
+    <tasks>
+- [ ] Task 1: Create Order Service (Server Actions) (AC: 1, 2, 3)
+  - [ ] Implement `getOrders` server action (fetch from `orders` table with RLS)
+  - [ ] Implement `getOrderDetails` server action (fetch `orders` + `order_items`)
+- [ ] Task 2: Create Order History Page (AC: 1, 2, 3, 5)
+  - [ ] Create `src/app/account/orders/page.tsx`
+  - [ ] Create `OrderList` component
+  - [ ] Create `OrderCard` component for individual items in the list
+  - [ ] Handle empty state ("No orders found")
+- [ ] Task 3: Create Order Details Page (AC: 4)
+  - [ ] Create `src/app/account/orders/[id]/page.tsx`
+  - [ ] Display shipping info, payment info, and item list
+  - [ ] Show order summary (subtotal, shipping, total)
+- [ ] Task 4: E2E Tests (AC: 1-5)
+  - [ ] Test viewing order list with data
+  - [ ] Test viewing order list without data
+  - [ ] Test navigation to order details
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User can navigate to `/account/orders` to see a list of all their orders.
+2. The list displays Date, Order ID, Total Amount, and Current Status for each order.
+3. Orders are sorted by date, with the most recent first.
+4. User can click on an order to view its full details (items, shipping, payment).
+5. Empty state is shown if the user has no orders.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-6.md</path>
+        <title>Epic 6 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Defines OrderService and data fetching requirements.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Orders table structure and RLS.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing order history code yet -->
+    </code>
+    <dependencies>
+      <dep>@supabase/ssr</dep>
+      <dep>lucide-react</dep>
+      <dep>date-fns</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Server Components for fetching.</constraint>
+    <constraint>Ensure RLS protects order data.</constraint>
+    <constraint>Use shadcn/ui components.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>getOrders</name>
+      <kind>Server Action</kind>
+      <signature>getOrders(): Promise&lt;OrderSummary[]&gt;</signature>
+      <path>src/app/actions/order.ts</path>
+    </interface>
+    <interface>
+      <name>getOrderDetails</name>
+      <kind>Server Action</kind>
+      <signature>getOrderDetails(orderId: string): Promise&lt;OrderDetail | null&gt;</signature>
+      <path>src/app/actions/order.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test fetching orders for authenticated user.</idea>
+      <idea>Test fetching orders for user with no history.</idea>
+      <idea>Test unauthorized access to other users' orders.</idea>
+    </ideas>
+  </tests>
+</story-context>

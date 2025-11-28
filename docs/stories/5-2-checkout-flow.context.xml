@@ -1,0 +1,87 @@
+<story-context id="5-2-checkout-flow" v="1.0">
+  <metadata>
+    <epicId>5</epicId>
+    <storyId>5.2</storyId>
+    <title>Checkout Flow</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/5-2-checkout-flow.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>complete my purchase</iWant>
+    <soThat>I can receive my products</soThat>
+    <tasks>
+- [ ] Task 1: Create Checkout Layout (AC: 1, 5)
+  - [ ] Create `src/app/(shop)/checkout/layout.tsx` (optional, if distinct layout needed)
+  - [ ] Create `src/app/(shop)/checkout/page.tsx`
+  - [ ] Design responsive grid (Left: Forms, Right: Summary)
+- [ ] Task 2: Create Shipping Form (AC: 2, 4)
+  - [ ] Create `ShippingForm` component using `react-hook-form` and `zod`
+  - [ ] Validate required fields
+  - [ ] Persist state (optional: local storage or lift state to parent)
+- [ ] Task 3: Create Order Summary Component (AC: 3)
+  - [ ] Create `OrderSummary` component
+  - [ ] Connect to `useCartStore` to display items and totals
+  - [ ] Calculate dummy shipping cost (e.g., flat $10) for MVP
+- [ ] Task 4: E2E Tests (AC: 1-4)
+  - [ ] Test navigation to checkout
+  - [ ] Test form validation
+  - [ ] Test summary calculation
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User can navigate to checkout from the cart.
+2. User can enter shipping information (Name, Address, City, Zip, Country).
+3. User sees an order summary (Items, Subtotal, Shipping Cost, Total) before payment.
+4. User cannot proceed to payment without valid shipping info.
+5. Checkout page is responsive and works on mobile.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-5.md</path>
+        <title>Epic 5 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Describes CheckoutService and flow.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Core Technologies</section>
+        <snippet>Next.js App Router, Tailwind CSS, shadcn/ui.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing checkout code yet -->
+    </code>
+    <dependencies>
+      <dep>react-hook-form</dep>
+      <dep>zod</dep>
+      <dep>zustand</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use react-hook-form for form handling.</constraint>
+    <constraint>Use Zod for validation.</constraint>
+    <constraint>Ensure mobile responsiveness.</constraint>
+  </constraints>
+
+  <interfaces>
+    <!-- No server actions yet, mostly client side form -->
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test form validation errors.</idea>
+      <idea>Test summary updates with cart changes (if allowed).</idea>
+    </ideas>
+  </tests>
+</story-context>

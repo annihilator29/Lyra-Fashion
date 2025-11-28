@@ -1,0 +1,121 @@
+<story-context id="4-1-user-authentication" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>4.1</storyId>
+    <title>User Authentication</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/4-1-user-authentication.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>sign up and log in</iWant>
+    <soThat>manage my orders and preferences</soThat>
+    <tasks>
+- [ ] Task 1: Setup Auth Service (Server Actions) (AC: 1, 2, 3)
+  - [ ] Implement `signup` server action using Supabase SSR
+  - [ ] Implement `login` server action using Supabase SSR
+  - [ ] Implement `logout` server action using Supabase SSR
+- [ ] Task 2: Create Signup Page &amp; Form (AC: 1)
+  - [ ] Create `src/app/(auth)/signup/page.tsx`
+  - [ ] Build Signup Form with Zod validation
+  - [ ] Connect form to `signup` action
+- [ ] Task 3: Create Login Page &amp; Form (AC: 2, 4)
+  - [ ] Create `src/app/(auth)/login/page.tsx`
+  - [ ] Build Login Form with Zod validation
+  - [ ] Connect form to `login` action
+  - [ ] Display error messages for invalid credentials
+- [ ] Task 4: Implement Middleware for Protected Routes (AC: 5)
+  - [ ] Create/Update `src/middleware.ts`
+  - [ ] Define protected routes (e.g., `/account`)
+  - [ ] Redirect unauthenticated users to `/login`
+- [ ] Task 5: E2E Tests (AC: 1-5)
+  - [ ] Write Playwright test for full auth flow (Signup -> Login -> Logout)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User can sign up with a valid email and password.
+2. User can log in with valid credentials.
+3. User can log out, clearing the session.
+4. Invalid login attempts display a clear error message ("Invalid login credentials").
+5. Protected routes (e.g., `/account`) redirect unauthenticated users to `/login`.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-4.md</path>
+        <title>Epic 4 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Defines AuthService, ProfileService, and WishlistService. Specifies Supabase Auth integration and RLS policies.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Auth</section>
+        <snippet>Supabase Auth handles session management. Middleware protects routes.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>PRD</title>
+        <section>F-4: Account Registration &amp; Authentication</section>
+        <snippet>Requirements for email registration, social login (deferred), and password reset.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing auth code yet -->
+    </code>
+    <dependencies>
+      <dep>@supabase/ssr</dep>
+      <dep>@supabase/supabase-js</dep>
+      <dep>zod</dep>
+      <dep>react-hook-form</dep>
+      <dep>lucide-react</dep>
+      <dep>sonner</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Supabase Auth for identity management.</constraint>
+    <constraint>Use Next.js Server Actions for mutations (signup, login).</constraint>
+    <constraint>Use Zod for form validation.</constraint>
+    <constraint>Use shadcn/ui components for forms.</constraint>
+    <constraint>Ensure RLS policies are in place for data access.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>signup</name>
+      <kind>Server Action</kind>
+      <signature>signup(formData: FormData): Promise&lt;{ error?: string }&gt;</signature>
+      <path>src/app/actions/auth.ts</path>
+    </interface>
+    <interface>
+      <name>login</name>
+      <kind>Server Action</kind>
+      <signature>login(formData: FormData): Promise&lt;{ error?: string }&gt;</signature>
+      <path>src/app/actions/auth.ts</path>
+    </interface>
+    <interface>
+      <name>logout</name>
+      <kind>Server Action</kind>
+      <signature>logout(): Promise&lt;void&gt;</signature>
+      <path>src/app/actions/auth.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Use Playwright for E2E testing of auth flows. Use Jest/Vitest for unit testing utility functions if needed.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test successful signup with valid data.</idea>
+      <idea>Test successful login with valid credentials.</idea>
+      <idea>Test login failure with invalid credentials.</idea>
+      <idea>Test redirection from protected route when unauthenticated.</idea>
+      <idea>Test logout clears session.</idea>
+    </ideas>
+  </tests>
+</story-context>

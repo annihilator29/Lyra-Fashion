@@ -1,0 +1,94 @@
+<story-context id="5-4-order-confirmation" v="1.0">
+  <metadata>
+    <epicId>5</epicId>
+    <storyId>5.4</storyId>
+    <title>Order Confirmation</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/5-4-order-confirmation.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>receive a confirmation of my order</iWant>
+    <soThat>I know my purchase was successful</soThat>
+    <tasks>
+- [ ] Task 1: Create Order Success Page (AC: 1, 2)
+  - [ ] Create `src/app/(shop)/checkout/success/page.tsx`
+  - [ ] Fetch order details (server-side) using Order ID
+  - [ ] Display "Thank You" message and order summary
+- [ ] Task 2: Implement Stripe Webhook (AC: 3, 5)
+  - [ ] Create `src/app/api/webhooks/stripe/route.ts`
+  - [ ] Verify Stripe signature
+  - [ ] Handle `payment_intent.succeeded` event
+  - [ ] Create/Update order in `orders` table
+- [ ] Task 3: Implement Email Notification (AC: 4)
+  - [ ] Install `resend` SDK
+  - [ ] Create Email Template (React Email)
+  - [ ] Send email upon successful order creation (in Webhook handler)
+- [ ] Task 4: E2E Tests (AC: 1-5)
+  - [ ] Test redirection to success page
+  - [ ] Test webhook handling (mocked event)
+  - [ ] Verify DB record creation
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User is redirected to a success page after payment.
+2. Success page displays the Order ID and a summary of purchased items.
+3. An order record is created in the database with status 'paid'.
+4. User receives an email confirmation with order details.
+5. Stripe Webhook updates the order status securely.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-5.md</path>
+        <title>Epic 5 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Describes WebhookHandler and OrderService.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Email Service</section>
+        <snippet>Resend selected for transactional emails.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing order code yet -->
+    </code>
+    <dependencies>
+      <dep>stripe</dep>
+      <dep>resend</dep>
+      <dep>@react-email/components</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Stripe Webhooks for order finalization.</constraint>
+    <constraint>Ensure idempotency in webhook handler.</constraint>
+    <constraint>Use Resend for emails.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>POST /api/webhooks/stripe</name>
+      <kind>API Route</kind>
+      <signature>POST(req: Request): Promise&lt;Response&gt;</signature>
+      <path>src/app/api/webhooks/stripe/route.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Integration tests for Webhook handler.</standards>
+    <locations>tests/integration</locations>
+    <ideas>
+      <idea>Test webhook with valid signature.</idea>
+      <idea>Test webhook with invalid signature (400).</idea>
+      <idea>Test duplicate webhook events (idempotency).</idea>
+    </ideas>
+  </tests>
+</story-context>

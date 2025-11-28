@@ -1,0 +1,119 @@
+<story-context id="4-3-wishlist-functionality" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>4.3</storyId>
+    <title>Wishlist Functionality</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/4-3-wishlist-functionality.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>save items to a wishlist</iWant>
+    <soThat>I can purchase them later</soThat>
+    <tasks>
+- [ ] Task 1: Create Wishlist Service (Server Actions) (AC: 1, 2)
+  - [ ] Implement `addToWishlist` server action
+  - [ ] Implement `removeFromWishlist` server action
+  - [ ] Implement `getWishlist` server action
+  - [ ] Create `wishlists` table with RLS policies
+- [ ] Task 2: Add Wishlist Button to Product Detail Page (AC: 1, 5)
+  - [ ] Create WishlistButton component
+  - [ ] Implement optimistic UI updates
+  - [ ] Handle duplicate prevention (check before adding)
+  - [ ] Show appropriate icon (filled/outlined heart)
+- [ ] Task 3: Create Wishlist Page (AC: 3, 4)
+  - [ ] Create `src/app/account/wishlist/page.tsx`
+  - [ ] Fetch wishlist data using `getWishlist`
+  - [ ] Display wishlisted products with images and details
+  - [ ] Link to Product Detail Pages
+- [ ] Task 4: E2E Tests (AC: 1-5)
+  - [ ] Write Playwright test for add to wishlist
+  - [ ] Write test for remove from wishlist
+  - [ ] Write test for viewing wishlist page
+  - [ ] Write test for preventing duplicates
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Authenticated user can add a product to their wishlist from the Product Detail Page.
+2. Authenticated user can remove a product from their wishlist.
+3. User can view a list of all wishlisted items on the `/account/wishlist` page.
+4. Wishlist items link correctly to their respective Product Detail Pages.
+5. Duplicate items cannot be added (handled by DB constraint and UI check).
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-4.md</path>
+        <title>Epic 4 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Defines WishlistService and wishlists table schema with unique constraint.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Wishlists table links users to products.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>Epics</title>
+        <section>Story 4.3</section>
+        <snippet>Wishlist functionality requirements and acceptance criteria.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing wishlist code yet -->
+    </code>
+    <dependencies>
+      <dep>@supabase/ssr</dep>
+      <dep>lucide-react</dep>
+      <dep>sonner</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Server Actions for wishlist mutations.</constraint>
+    <constraint>Implement optimistic UI for better user experience.</constraint>
+    <constraint>Unique constraint on (user_id, product_id) prevents duplicates.</constraint>
+    <constraint>RLS ensures users only access their own wishlist.</constraint>
+    <constraint>Use Heart icon from lucide-react.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>addToWishlist</name>
+      <kind>Server Action</kind>
+      <signature>addToWishlist(productId: string): Promise&lt;{ error?: string }&gt;</signature>
+      <path>src/app/actions/wishlist.ts</path>
+    </interface>
+    <interface>
+      <name>removeFromWishlist</name>
+      <kind>Server Action</kind>
+      <signature>removeFromWishlist(productId: string): Promise&lt;{ error?: string }&gt;</signature>
+      <path>src/app/actions/wishlist.ts</path>
+    </interface>
+    <interface>
+      <name>getWishlist</name>
+      <kind>Server Action</kind>
+      <signature>getWishlist(): Promise&lt;WishlistItem[]&gt;</signature>
+      <path>src/app/actions/wishlist.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E testing wishlist flows.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test adding product to wishlist from PDP.</idea>
+      <idea>Test removing product from wishlist.</idea>
+      <idea>Test viewing wishlist page shows correct items.</idea>
+      <idea>Test duplicate prevention.</idea>
+      <idea>Test optimistic UI updates.</idea>
+    </ideas>
+  </tests>
+</story-context>

@@ -1,0 +1,92 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.4</storyId>
+    <title>Product Search Implementation</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/2-4-product-search-implementation.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Shopper</asA>
+    <iWant>to search for products by name or description</iWant>
+    <soThat>I can quickly find specific items</soThat>
+    <tasks>
+- [ ] Implement Search Input Component. (AC: 1, 2, 4)
+  - [ ] Create `src/components/shop/search-bar.tsx`.
+  - [ ] Use `use-debounce` to handle input changes.
+  - [ ] Update URL using `useRouter` or `nuqs`.
+- [ ] Update Data Fetching Logic. (AC: 3, 6)
+  - [ ] Update `getProducts` to accept a `query` parameter.
+  - [ ] Use Supabase `ilike` or Full Text Search on `name` and `description`.
+- [ ] Handle Empty States. (AC: 5)
+  - [ ] Update `src/app/shop/page.tsx` to show a "No results" message if `products.length === 0`.
+- [ ] Verify Mobile Responsiveness.
+  - [ ] Ensure search bar is accessible on mobile (maybe hidden behind an icon).
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. A search bar is available in the header or PLP.
+2. Typing in the search bar updates the URL with a `?q=` query parameter.
+3. The product grid filters to show only matching items.
+4. Search is debounced (e.g., 300ms) to prevent excessive API calls.
+5. "No results found" state is displayed if no items match.
+6. Search works in combination with filters (e.g., "Red Dress").
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2</title>
+        <section>3.3 UI/UX Components</section>
+        <snippet>SearchBar: Input with debounce.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2</title>
+        <section>3.2 APIs &amp; Interfaces</section>
+        <snippet>searchProducts(query: string): Full-text search on name/description.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="use-debounce" />
+        <package name="nuqs" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Debounce input to reduce DB load
+    - URL as source of truth
+    - Case-insensitive search
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Search Params</name>
+      <kind>Type</kind>
+      <signature>interface SearchParams { q?: string; }</signature>
+      <path>src/app/shop/page.tsx</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Debounce Verification.
+    </standards>
+    <locations>
+      src/components/shop/search-bar.tsx
+    </locations>
+    <ideas>
+      - Type fast -> URL updates once
+      - Search "dress" -> shows dresses
+      - Search "xyz" -> shows no results
+    </ideas>
+  </tests>
+</story-context>

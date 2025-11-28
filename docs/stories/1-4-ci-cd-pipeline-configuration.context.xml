@@ -1,0 +1,97 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.4</storyId>
+    <title>CI/CD Pipeline Configuration</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-4-ci-cd-pipeline-configuration.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>DevOps Engineer</asA>
+    <iWant>to set up a continuous integration and deployment pipeline</iWant>
+    <soThat>changes are automatically tested and deployed to a staging environment</soThat>
+    <tasks>
+- [ ] Initialize Vercel Project. (AC: 1)
+  - [ ] Install Vercel CLI: `npm i -g vercel` (if needed) or use Vercel Dashboard.
+  - [ ] Run `vercel link` to link local project to Vercel.
+  - [ ] Configure project settings (Framework: Next.js).
+- [ ] Configure Environment Variables in Vercel. (AC: 4)
+  - [ ] Add `NEXT_PUBLIC_SUPABASE_URL`
+  - [ ] Add `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+  - [ ] Pull env vars locally to verify: `vercel env pull .env.local`
+- [ ] Configure Build Settings. (AC: 3)
+  - [ ] Ensure Build Command is `npm run build`
+  - [ ] Ensure Install Command is `npm install`
+  - [ ] (Optional) Add a "Ignore Build Step" script if we want to skip builds on docs-only changes.
+- [ ] Verify Deployment Pipeline. (AC: 2, 5, 6)
+  - [ ] Push a small change to `main` (e.g., update README or a comment).
+  - [ ] Verify build triggers in Vercel Dashboard.
+  - [ ] Verify deployment succeeds and URL is accessible.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Vercel project is created and connected to the Git repository.
+2. Push to `main` branch triggers a Vercel build and deployment.
+3. Build process includes running `npm run build` and `npm run lint`.
+4. Environment variables (Supabase keys) are configured in Vercel Project Settings.
+5. A staging/preview URL is accessible after deployment.
+6. Automatic deployments are verified to work.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>1.2 In-Scope</section>
+        <snippet>CI/CD: Vercel deployment pipeline configuration with automated build and test steps.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification: Epic 1</title>
+        <section>3.2 Security</section>
+        <snippet>Environment Variables: All secrets (API keys, DB URLs) must be stored in .env.local and Vercel Environment Variables, never committed to Git.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Decision Summary</section>
+        <snippet>Deployment: Vercel integration. CI/CD Pipeline automates testing and deployment.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No code artifacts for CI/CD setup usually -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="vercel" version="latest" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use Vercel for CI/CD
+    - Do not commit secrets
+    - Build must pass (npm run build)
+  </constraints>
+  <interfaces>
+    <!-- No interfaces -->
+  </interfaces>
+  <tests>
+    <standards>
+      E2E Tests: Basic "Smoke Test" - load the homepage and verify no console errors.
+    </standards>
+    <locations>
+      Vercel Dashboard (Build Logs)
+    </locations>
+    <ideas>
+      - Verify build logs show success
+      - Verify linting runs during build
+      - Visit deployed URL
+    </ideas>
+  </tests>
+</story-context>

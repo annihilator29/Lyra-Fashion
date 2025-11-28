@@ -1,0 +1,99 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.5</storyId>
+    <title>Product Detail Page (PDP) - Core Info</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/2-5-product-detail-page-pdp-core-info.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Shopper</asA>
+    <iWant>to view detailed information about a specific product</iWant>
+    <soThat>I can make an informed purchase decision</soThat>
+    <tasks>
+- [ ] Create PDP Layout. (AC: 1, 2)
+  - [ ] `src/app/shop/product/[slug]/page.tsx`.
+  - [ ] Fetch product by slug using `getProductBySlug`.
+  - [ ] Handle 404 if product not found.
+- [ ] Implement Product Gallery. (AC: 2)
+  - [ ] Create `src/components/product/product-gallery.tsx`.
+  - [ ] Display main image and thumbnails.
+- [ ] Implement Product Info Section. (AC: 2, 4, 5)
+  - [ ] Display Name, Price, Description.
+  - [ ] Create `src/components/product/variant-selector.tsx` (Size/Color).
+  - [ ] Add "Add to Bag" button.
+- [ ] Implement Transparency Module. (AC: 3)
+  - [ ] Create `src/components/product/transparency-card.tsx`.
+  - [ ] Visualize `transparency_data` (Fabric, Labor, Transport, Markup).
+- [ ] Add SEO Metadata. (AC: 6)
+  - [ ] Use `generateMetadata` in `page.tsx`.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. A PDP exists at `/shop/product/[slug]`.
+2. The page displays: Product Name, Price, Description, Images, and Category.
+3. The page displays the "Transparency Module" (Cost Breakdown) using the JSONB data.
+4. Users can select Size and Color (UI only for now, no cart yet).
+5. "Add to Bag" button exists (can be disabled or show a toast for now).
+6. SEO metadata (Title, Description) is dynamically generated from product data.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2</title>
+        <section>3.3 UI/UX Components</section>
+        <snippet>ProductGallery: Image carousel. TransparencyCard: Visual breakdown of costs.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>UX Design Specification</title>
+        <section>2.4 Novel UX Patterns</section>
+        <snippet>Transparency &amp; Origin Interactive Module: Visual Price Breakdown (Fabric, Labor, Transport).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" />
+        <package name="react" />
+        <package name="lucide-react" />
+        <package name="shadcn-ui" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use Server Components for fetching
+    - Transparency data must be accurate from DB
+    - Mobile responsive gallery
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Product Details</name>
+      <kind>Type</kind>
+      <signature>interface Product { transparency_data: { fabric: number; labor: number; ... }; ... }</signature>
+      <path>src/types/database.types.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      SEO &amp; Visual Verification.
+    </standards>
+    <locations>
+      src/app/shop/product/[slug]/page.tsx
+    </locations>
+    <ideas>
+      - Check meta tags in head
+      - Verify transparency card renders correct numbers
+      - Verify 404 for invalid slug
+    </ideas>
+  </tests>
+</story-context>

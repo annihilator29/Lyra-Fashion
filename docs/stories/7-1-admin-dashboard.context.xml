@@ -1,0 +1,94 @@
+<story-context id="7-1-admin-dashboard" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>7.1</storyId>
+    <title>Admin Dashboard</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/7-1-admin-dashboard.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Admin</asA>
+    <iWant>view a dashboard with key business metrics</iWant>
+    <soThat>I can monitor the health of the store</soThat>
+    <tasks>
+- [ ] Task 1: Setup Admin Layout &amp; Auth (AC: 1, 2, 6)
+  - [ ] Create `src/app/admin/layout.tsx` with Sidebar
+  - [ ] Implement `AdminGuard` (Middleware or HOC) to check role
+  - [ ] Create Admin Login page (if distinct from customer login)
+- [ ] Task 2: Create Dashboard Metrics Service (AC: 3, 4, 5)
+  - [ ] Implement `getAdminMetrics` server action
+  - [ ] Query DB for total revenue (sum of paid orders)
+  - [ ] Query DB for total order count
+  - [ ] Query DB for count of items where quantity &lt; threshold
+- [ ] Task 3: Build Dashboard UI (AC: 3, 4, 5)
+  - [ ] Create `src/app/admin/dashboard/page.tsx`
+  - [ ] Create `MetricCard` component
+  - [ ] Display metrics with simple charts (optional, using Recharts)
+- [ ] Task 4: E2E Tests (AC: 1-6)
+  - [ ] Test admin access control (allow admin, block customer)
+  - [ ] Verify metrics display correct data (mocked)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Secure `/admin` route accessible only to users with 'admin' role.
+2. Unauthenticated or unauthorized users are redirected to login or home.
+3. Dashboard displays "Total Revenue" card.
+4. Dashboard displays "Total Orders" card.
+5. Dashboard displays "Low Stock Items" count.
+6. Sidebar navigation allows switching between Dashboard, Products, Orders, and Inventory.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-7.md</path>
+        <title>Epic 7 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Defines AdminAuthService and AdminMetrics.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Security</section>
+        <snippet>RBAC requirements for admin access.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing admin code yet -->
+    </code>
+    <dependencies>
+      <dep>@supabase/ssr</dep>
+      <dep>lucide-react</dep>
+      <dep>recharts</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Strict RBAC enforcement.</constraint>
+    <constraint>Use Server Actions for data fetching.</constraint>
+    <constraint>Use shadcn/ui for admin interface.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>getAdminMetrics</name>
+      <kind>Server Action</kind>
+      <signature>getAdminMetrics(): Promise&lt;AdminMetrics&gt;</signature>
+      <path>src/app/actions/admin.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test access with admin user.</idea>
+      <idea>Test access denial with normal user.</idea>
+      <idea>Test metric calculations.</idea>
+    </ideas>
+  </tests>
+</story-context>

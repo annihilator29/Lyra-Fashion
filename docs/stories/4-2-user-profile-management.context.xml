@@ -1,0 +1,97 @@
+<story-context id="4-2-user-profile-management" v="1.0">
+  <metadata>
+    <epicId>4</epicId>
+    <storyId>4.2</storyId>
+    <title>User Profile Management</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/4-2-user-profile-management.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>update my profile details</iWant>
+    <soThat>my information is current</soThat>
+    <tasks>
+- [ ] Task 1: Create Profile Service (Server Actions) (AC: 2, 3)
+  - [ ] Implement `getProfile` server action
+  - [ ] Implement `updateProfile` server action
+  - [ ] Ensure RLS policies are respected
+- [ ] Task 2: Create Profile Page (AC: 1)
+  - [ ] Create `src/app/account/profile/page.tsx`
+  - [ ] Fetch profile data using `getProfile`
+  - [ ] Display current details (Name, Email)
+- [ ] Task 3: Create Profile Form (AC: 2, 4)
+  - [ ] Create Profile Form component with Zod validation
+  - [ ] Connect form to `updateProfile` action
+  - [ ] Handle success/error states with toast notifications
+- [ ] Task 4: E2E Tests (AC: 1-4)
+  - [ ] Write Playwright test for viewing and updating profile
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User can view their profile details (Name, Email).
+2. User can update their Full Name.
+3. Updates are persisted to the `profiles` database table.
+4. UI reflects updates immediately after saving.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-4.md</path>
+        <title>Epic 4 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Defines ProfileService and data models.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Data Architecture</section>
+        <snippet>Profiles table extends Auth users.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing profile code yet -->
+    </code>
+    <dependencies>
+      <dep>@supabase/ssr</dep>
+      <dep>zod</dep>
+      <dep>react-hook-form</dep>
+      <dep>sonner</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Server Actions for data mutation.</constraint>
+    <constraint>Use RLS to protect user data.</constraint>
+    <constraint>Use Zod for validation.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>updateProfile</name>
+      <kind>Server Action</kind>
+      <signature>updateProfile(data: ProfileUpdateSchema): Promise&lt;{ error?: string }&gt;</signature>
+      <path>src/app/actions/profile.ts</path>
+    </interface>
+    <interface>
+      <name>getProfile</name>
+      <kind>Server Action</kind>
+      <signature>getProfile(): Promise&lt;Profile | null&gt;</signature>
+      <path>src/app/actions/profile.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test viewing profile loads correct data.</idea>
+      <idea>Test updating name persists to DB.</idea>
+      <idea>Test updating with invalid data fails.</idea>
+    </ideas>
+  </tests>
+</story-context>

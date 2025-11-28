@@ -1,0 +1,86 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.3</storyId>
+    <title>Homepage Storytelling Elements</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/3-3-homepage-storytelling-elements.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Shopper</asA>
+    <iWant>to see the brand's story on the homepage</iWant>
+    <soThat>I am immediately engaged</soThat>
+    <tasks>
+- [ ] Implement Hero Section. (AC: 1, 2)
+  - [ ] `src/components/home/hero-section.tsx`.
+  - [ ] Use `next/image` (priority loading) or `<video>` tag.
+- [ ] Implement Value Props Section. (AC: 3)
+  - [ ] `src/components/home/value-props.tsx`.
+  - [ ] 3-column grid with icons/text.
+- [ ] Implement Featured Story Teaser. (AC: 4)
+  - [ ] `src/components/home/story-teaser.tsx`.
+  - [ ] Image + Text + "Read Our Story" link.
+- [ ] Assemble Homepage. (AC: 5)
+  - [ ] Update `src/app/page.tsx` to include these sections.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. The homepage (`/`) displays a full-screen Hero section with video or high-res image.
+2. The Hero section has a clear headline and "Shop Collection" CTA.
+3. A "Value Proposition" section highlights: Factory Direct, Transparent Pricing, Premium Quality.
+4. A "Featured Story" section links to the About page.
+5. The layout is responsive and visually impactful.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-3.md</path>
+        <title>Technical Specification: Epic 3</title>
+        <section>3.2 UI/UX Components</section>
+        <snippet>Homepage: HeroSection, ValueProps, FeaturedStory.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>UX Design Specification</title>
+        <section>5.1 Critical User Paths</section>
+        <snippet>Entry (Homepage): Full-screen lifestyle video/image. Scrolls to see "Factory Direct" value proposition.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" />
+        <package name="react" />
+        <package name="lucide-react" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - LCP optimization (Hero image priority)
+    - Mobile responsive
+  </constraints>
+  <interfaces>
+    <!-- Static content -->
+  </interfaces>
+  <tests>
+    <standards>
+      Visual Verification &amp; Lighthouse Performance.
+    </standards>
+    <locations>
+      src/app/page.tsx
+    </locations>
+    <ideas>
+      - Check LCP score
+      - Verify video autoplay on mobile (if applicable)
+      - Verify links work
+    </ideas>
+  </tests>
+</story-context>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lyra Fashion - Color Theme Visualizer</title>
+    <style>
+        :root {
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Theme 1: Organic Modern (Everlane/Reformation) */
+        .theme-organic {
+            --bg-primary: #F9F8F6; /* Warm off-white */
+            --bg-secondary: #EBE9E4; /* Stone */
+            --text-primary: #2C2C2C; /* Soft Black */
+            --text-secondary: #595959; /* Dark Grey */
+            --accent: #5D6D5B; /* Muted Olive */
+            --accent-hover: #4A5749;
+            --border: #D8D6D1;
+            --success: #5D6D5B;
+            --font-heading: var(--font-serif);
+        }
+
+        /* Theme 2: Editorial Chic (Zara/Massimo Dutti) */
+        .theme-editorial {
+            --bg-primary: #FFFFFF; /* Pure White */
+            --bg-secondary: #F4F4F4; /* Light Grey */
+            --text-primary: #000000; /* Pure Black */
+            --text-secondary: #666666; /* Medium Grey */
+            --accent: #000000; /* Black Accent */
+            --accent-hover: #333333;
+            --border: #E5E5E5;
+            --success: #2E7D32;
+            --font-heading: 'Helvetica Neue', Arial, sans-serif; /* Clean Sans */
+        }
+
+        /* Theme 3: Soft Sophistication (Aritzia/Hugo Boss) */
+        .theme-soft {
+            --bg-primary: #FDFDFD; /* Crisp White */
+            --bg-secondary: #F0F2F5; /* Cool Grey-Blue tint */
+            --text-primary: #1A202C; /* Navy-Black */
+            --text-secondary: #4A5568; /* Slate Grey */
+            --accent: #718096; /* Slate Blue/Grey */
+            --accent-hover: #4A5568;
+            --border: #E2E8F0;
+            --success: #38A169;
+            --font-heading: var(--font-sans); /* Modern Sans */
+        }
+
+        body {
+            font-family: var(--font-sans);
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .theme-header {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+
+        .theme-title {
+            font-family: var(--font-heading);
+            font-size: 24px;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .theme-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Color Palette */
+        .palette {
+            display: flex;
+            gap: 10px;
+        }
+
+        .swatch {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* UI Components */
+        .component-section {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .section-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--text-primary);
+            color: var(--text-primary);
+        }
+        .btn-secondary:hover {
+            background-color: var(--bg-secondary);
+        }
+
+        .card-example {
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .card-content {
+            padding: 16px;
+        }
+
+        .product-title {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            margin: 0 0 4px 0;
+        }
+
+        .product-price {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .transparency-tag {
+            display: inline-block;
+            font-size: 11px;
+            padding: 4px 8px;
+            background-color: var(--bg-secondary);
+            color: var(--text-secondary);
+            border-radius: 2px;
+            margin-top: 8px;
+        }
+
+        /* Typography Preview */
+        .typography-preview h1 {
+            font-family: var(--font-heading);
+            font-size: 32px;
+            margin: 0 0 8px 0;
+            line-height: 1.2;
+        }
+        .typography-preview p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Lyra Fashion - Color Theme Visualizer</h1>
+        <p>Comparing 3 distinct aesthetic directions based on "Calm & Assured"</p>
+    </div>
+
+    <div class="container">
+
+        <!-- Theme 1 -->
+        <div class="theme-card theme-organic">
+            <div class="theme-header">
+                <h2 class="theme-title">1. Organic Modern</h2>
+                <p class="theme-desc">Warm, earthy, and honest. Inspired by Everlane & Reformation. Uses serif headings for a classic touch.</p>
+            </div>
+
+            <div class="palette">
+                <div class="swatch" style="background: var(--bg-primary); color: #333;">Bg</div>
+                <div class="swatch" style="background: var(--text-primary);">Text</div>
+                <div class="swatch" style="background: var(--accent);">Acc</div>
+                <div class="swatch" style="background: var(--bg-secondary); color: #333;">Sec</div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Typography</div>
+                <div class="typography-preview">
+                    <h1>The Cashmere Crew</h1>
+                    <p>Sourced directly from Mongolia. 100% Grade-A cashmere without the retail markup.</p>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Buttons</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary">Add to Bag - $120</button>
+                    <button class="btn btn-secondary">Read Story</button>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Product Card</div>
+                <div class="card-example">
+                    <div class="card-img">Product Image</div>
+                    <div class="card-content">
+                        <h3 class="product-title">Silk Slip Dress</h3>
+                        <div class="product-price">$98 <span style="text-decoration: line-through; color: #999; font-size: 12px; margin-left: 4px;">$210</span></div>
+                        <div class="transparency-tag">Factory: Hangzhou Silk Co.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 2 -->
+        <div class="theme-card theme-editorial">
+            <div class="theme-header">
+                <h2 class="theme-title">2. Editorial Chic</h2>
+                <p class="theme-desc">Sharp, high-contrast, and premium. Inspired by Zara & Massimo Dutti. Clean sans-serifs and stark black/white.</p>
+            </div>
+
+            <div class="palette">
+                <div class="swatch" style="background: var(--bg-primary); color: #333; border: 1px solid #eee;">Bg</div>
+                <div class="swatch" style="background: var(--text-primary);">Text</div>
+                <div class="swatch" style="background: var(--accent);">Acc</div>
+                <div class="swatch" style="background: var(--bg-secondary); color: #333;">Sec</div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Typography</div>
+                <div class="typography-preview">
+                    <h1>THE CASHMERE CREW</h1>
+                    <p>Sourced directly from Mongolia. 100% Grade-A cashmere without the retail markup.</p>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Buttons</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" style="border-radius: 0;">ADD TO BAG - $120</button>
+                    <button class="btn btn-secondary" style="border-radius: 0;">READ STORY</button>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Product Card</div>
+                <div class="card-example" style="border: none;">
+                    <div class="card-img" style="height: 240px;">Product Image</div>
+                    <div class="card-content" style="padding: 12px 0;">
+                        <h3 class="product-title" style="font-weight: 400; font-size: 14px;">SILK SLIP DRESS</h3>
+                        <div class="product-price" style="color: black; font-weight: 600;">$98.00</div>
+                        <div class="transparency-tag" style="background: transparent; border: 1px solid #eee; padding: 2px 6px;">Origin: Hangzhou</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme 3 -->
+        <div class="theme-card theme-soft">
+            <div class="theme-header">
+                <h2 class="theme-title">3. Soft Sophistication</h2>
+                <p class="theme-desc">Muted, elegant, and approachable. Inspired by Aritzia. Uses modern sans-serifs with a softer palette.</p>
+            </div>
+
+            <div class="palette">
+                <div class="swatch" style="background: var(--bg-primary); color: #333;">Bg</div>
+                <div class="swatch" style="background: var(--text-primary);">Text</div>
+                <div class="swatch" style="background: var(--accent);">Acc</div>
+                <div class="swatch" style="background: var(--bg-secondary); color: #333;">Sec</div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Typography</div>
+                <div class="typography-preview">
+                    <h1>The Cashmere Crew</h1>
+                    <p>Sourced directly from Mongolia. 100% Grade-A cashmere without the retail markup.</p>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Buttons</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" style="background-color: #2D3748;">Add to Bag - $120</button>
+                    <button class="btn btn-secondary">Read Story</button>
+                </div>
+            </div>
+
+            <div class="component-section">
+                <div class="section-label">Product Card</div>
+                <div class="card-example" style="box-shadow: 0 2px 4px rgba(0,0,0,0.04); border: none;">
+                    <div class="card-img">Product Image</div>
+                    <div class="card-content">
+                        <h3 class="product-title" style="font-weight: 600;">Silk Slip Dress</h3>
+                        <div class="product-price">$98</div>
+                        <div class="transparency-tag" style="color: #718096; background: #EDF2F7;">Hangzhou Silk Co.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

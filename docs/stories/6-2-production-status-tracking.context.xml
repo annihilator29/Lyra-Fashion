@@ -1,0 +1,83 @@
+<story-context id="6-2-production-status-tracking" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>6.2</storyId>
+    <title>Production Status Tracking</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-2-production-status-tracking.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>track the production status of my order</iWant>
+    <soThat>I can see the journey of my garment</soThat>
+    <tasks>
+- [ ] Task 1: Create Timeline Component (AC: 1, 2, 3)
+  - [ ] Create `TrackingTimeline` component using `shadcn/ui` or custom SVG
+  - [ ] Define steps and icons for each status
+  - [ ] Implement logic to highlight current and completed steps
+- [ ] Task 2: Integrate Tracking Data (AC: 4, 5)
+  - [ ] Update `OrderDetails` page to include `TrackingTimeline`
+  - [ ] Map DB status to timeline steps
+  - [ ] Add tooltips or descriptions for "Production" transparency
+- [ ] Task 3: Mock Status Updates (for Demo) (AC: 5)
+  - [ ] Create a simple admin action or DB trigger to simulate status progression (optional, for testing)
+- [ ] Task 4: E2E Tests (AC: 1-3)
+  - [ ] Test timeline rendering for different statuses
+  - [ ] Verify correct step is active
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Order Details page displays a visual timeline of the order status.
+2. Timeline includes steps: Placed, Production, Quality Check, Shipped, Delivered.
+3. Current status is highlighted.
+4. "Production" step provides additional context (e.g., "Your garment is being sewn").
+5. Status updates are reflected in real-time (or on page refresh).
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-6.md</path>
+        <title>Epic 6 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Describes TrackingService and timeline visualization.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>PRD</title>
+        <section>Transparency Module</section>
+        <snippet>Requirements for showing the journey of the garment.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing tracking code yet -->
+    </code>
+    <dependencies>
+      <dep>lucide-react</dep>
+      <dep>framer-motion</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Lucide icons for steps.</constraint>
+    <constraint>Ensure premium visual design (Calm &amp; Assured).</constraint>
+    <constraint>Use Framer Motion for smooth transitions (optional but recommended).</constraint>
+  </constraints>
+
+  <interfaces>
+    <!-- Uses OrderService from 6.1 -->
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test timeline shows correct active step.</idea>
+      <idea>Test timeline handles all status enums.</idea>
+    </ideas>
+  </tests>
+</story-context>

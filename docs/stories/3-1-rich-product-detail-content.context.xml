@@ -1,0 +1,91 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>3</epicId>
+    <storyId>3.1</storyId>
+    <title>Rich Product Detail Content</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/3-1-rich-product-detail-content.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Shopper</asA>
+    <iWant>to see the "Craftsmanship Story" for a product</iWant>
+    <soThat>I understand the value and quality</soThat>
+    <tasks>
+- [ ] Update Data Model. (AC: 2)
+  - [ ] Add `craftsmanship_content` JSONB column to `products` table (via migration).
+  - [ ] Update `seed.ts` to include mock craftsmanship stories.
+- [ ] Create Craftsmanship Component. (AC: 1, 3, 4)
+  - [ ] `src/components/product/craftsmanship-section.tsx`.
+  - [ ] Design a layout that highlights text and images (e.g., 50/50 split).
+- [ ] Integrate into PDP. (AC: 1, 5)
+  - [ ] Update `src/app/shop/product/[slug]/page.tsx` to render the component.
+  - [ ] Pass `product.craftsmanship_content` prop.
+- [ ] Optimize Performance. (AC: 6)
+  - [ ] Use `next/image` with proper sizing.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. PDP includes a "Craftsmanship" or "Origin" section below the main product info.
+2. This section displays data from the `craftsmanship_content` JSONB field.
+3. Content includes: Origin Story, Material Details, and Artisan Note.
+4. Layout uses high-quality imagery (e.g., split screen or parallax).
+5. If no craftsmanship data exists, the section is hidden.
+6. Images are optimized and lazy-loaded.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-3.md</path>
+        <title>Technical Specification: Epic 3</title>
+        <section>3.1 Data Models</section>
+        <snippet>products table update: craftsmanship_content (jsonb).</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-3.md</path>
+        <title>Technical Specification: Epic 3</title>
+        <section>3.2 UI/UX Components</section>
+        <snippet>CraftsmanshipSection: Split screen or Full-width banner.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" />
+        <package name="react" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - JSONB structure must match spec
+    - Responsive design
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Craftsmanship Content</name>
+      <kind>Type</kind>
+      <signature>interface CraftsmanshipContent { origin_story: string; material_details: string; ... }</signature>
+      <path>src/types/database.types.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Visual Verification.
+    </standards>
+    <locations>
+      src/app/shop/product/[slug]/page.tsx
+    </locations>
+    <ideas>
+      - Verify section appears when data exists
+      - Verify section hidden when data missing
+      - Check image loading behavior
+    </ideas>
+  </tests>
+</story-context>

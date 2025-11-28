@@ -1,0 +1,97 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.2</storyId>
+    <title>Product Listing Page (PLP)</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/2-2-product-listing-page-plp.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>User</asA>
+    <iWant>to browse a list of products</iWant>
+    <soThat>I can see what items are available for purchase</soThat>
+    <tasks>
+- [ ] Create Product Card Component. (AC: 3)
+  - [ ] `src/components/product/product-card.tsx`
+  - [ ] Use `next/image` for optimized images.
+  - [ ] Display Name, Price (formatted), Category.
+- [ ] Implement Data Fetching. (AC: 2)
+  - [ ] Create `src/lib/api/products.ts` with `getProducts()`.
+  - [ ] Use `supabase-js` to select `*` from `products`.
+- [ ] Build PLP Page. (AC: 1, 4)
+  - [ ] `src/app/shop/page.tsx`
+  - [ ] Use CSS Grid for layout.
+  - [ ] Map over products and render `ProductCard`.
+- [ ] Add Loading State. (AC: 5)
+  - [ ] Create `src/app/shop/loading.tsx` with skeleton cards.
+- [ ] Add Error State. (AC: 6)
+  - [ ] Create `src/app/shop/error.tsx`.
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. A `/shop` page exists and displays a grid of products.
+2. Products are fetched from Supabase using Server Components.
+3. Each product card displays: Image, Name, Price, and Category.
+4. The grid is responsive (1 column mobile, 2 tablet, 3-4 desktop).
+5. Loading skeletons are shown while data is fetching.
+6. Basic error handling (e.g., "Failed to load products") is implemented.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-2.md</path>
+        <title>Technical Specification: Epic 2</title>
+        <section>3.3 UI/UX Components</section>
+        <snippet>ProductCard: Image, Name, Price. PLP: Grid view.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>UX Design Specification</title>
+        <section>5.1 Critical User Paths</section>
+        <snippet>Browsing (Collection): Clean grid of products.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code yet -->
+    </code>
+    <dependencies>
+      <ecosystem name="Node.js">
+        <package name="next" />
+        <package name="react" />
+        <package name="lucide-react" />
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use Server Components for fetching
+    - Use Tailwind Grid
+    - Use next/image
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Product Data</name>
+      <kind>Type</kind>
+      <signature>interface Product { id: string; name: string; price: number; ... }</signature>
+      <path>src/types/database.types.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Visual Regression (if available) or Manual Verification.
+    </standards>
+    <locations>
+      src/app/shop/page.tsx
+    </locations>
+    <ideas>
+      - Verify grid layout at different breakpoints
+      - Verify loading skeleton appears
+      - Verify product data matches DB
+    </ideas>
+  </tests>
+</story-context>

@@ -1,0 +1,93 @@
+<story-context id="5-3-payment-integration-stripe" v="1.0">
+  <metadata>
+    <epicId>5</epicId>
+    <storyId>5.3</storyId>
+    <title>Payment Integration (Stripe)</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-28</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/5-3-payment-integration-stripe.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Customer</asA>
+    <iWant>pay securely using my credit card</iWant>
+    <soThat>I can complete the transaction</soThat>
+    <tasks>
+- [ ] Task 1: Setup Stripe Backend (AC: 2, 3)
+  - [ ] Install `stripe` SDK
+  - [ ] Create `src/lib/stripe/server.ts`
+  - [ ] Implement `createPaymentIntent` server action (calculate amount from cart items on server)
+- [ ] Task 2: Setup Stripe Frontend (AC: 1)
+  - [ ] Install `@stripe/stripe-js` and `@stripe/react-stripe-js`
+  - [ ] Create `StripeProvider` component
+  - [ ] Create `PaymentForm` component with `PaymentElement`
+- [ ] Task 3: Integrate Payment Flow (AC: 4, 5, 6)
+  - [ ] Connect `PaymentForm` to `createPaymentIntent`
+  - [ ] Handle `stripe.confirmPayment`
+  - [ ] Implement loading and error states
+- [ ] Task 4: E2E Tests (AC: 1-6)
+  - [ ] Test successful payment flow (using Stripe test card)
+  - [ ] Test failed payment flow (using Stripe decline card)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User can enter credit card details using Stripe Elements.
+2. Payment is processed securely via Stripe Payment Intents.
+3. Server validates the transaction amount before processing.
+4. User sees a loading state during payment processing.
+5. Successful payment redirects to the success page.
+6. Failed payment shows a clear error message.
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-5.md</path>
+        <title>Epic 5 Tech Spec</title>
+        <section>Detailed Design</section>
+        <snippet>Specifies Stripe integration using Payment Intents and Elements.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture</title>
+        <section>Payments</section>
+        <snippet>Stripe selected as payment provider.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing payment code yet -->
+    </code>
+    <dependencies>
+      <dep>stripe</dep>
+      <dep>@stripe/stripe-js</dep>
+      <dep>@stripe/react-stripe-js</dep>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Stripe Elements for UI.</constraint>
+    <constraint>Calculate prices on the server.</constraint>
+    <constraint>Use Payment Intents API.</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>createPaymentIntent</name>
+      <kind>Server Action</kind>
+      <signature>createPaymentIntent(items: CartItem[]): Promise&lt;{ clientSecret: string }&gt;</signature>
+      <path>src/app/actions/checkout.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Playwright for E2E with Stripe Test Cards.</standards>
+    <locations>tests/e2e</locations>
+    <ideas>
+      <idea>Test successful payment with 4242 card.</idea>
+      <idea>Test decline with 4000 card.</idea>
+      <idea>Test server validation of total amount.</idea>
+    </ideas>
+  </tests>
+</story-context>
