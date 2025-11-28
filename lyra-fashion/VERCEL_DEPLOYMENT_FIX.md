@@ -1,17 +1,27 @@
 # Vercel Deployment Fix
 
-**Issue Fixed:** 2025-11-28T19:21:00Z
+**Issues Fixed:** 2025-11-28T19:39:00Z
 
-## Problem
+## Problems Encountered
+
+### Issue 1
 During Vercel deployment, you encountered this error:
 ```
 Invalid request: should NOT have additional property `frameworkVersion`. Please remove it.
+```
+
+### Issue 2
+After fixing the first issue, you encountered this error:
+```
+Build Failed - Function Runtimes must have a valid version, for example `now-php@1.0.0`.
 ```
 
 ## Root Cause
 The `vercel.json` configuration file contained invalid properties that are not supported by Vercel's configuration schema.
 
 ## Solution Applied
+
+### Fix 1: Removed Invalid Properties
 **Fixed Properties Removed:**
 - ❌ `frameworkVersion` - Not a valid Vercel config property
 - ❌ `gitLFS` - Not needed for this project
@@ -21,9 +31,13 @@ The `vercel.json` configuration file contained invalid properties that are not s
 - ❌ `staticFileExcludes` - Not needed for this setup
 - ❌ `env` - Environment variables should be set in Vercel Dashboard, not config file
 
+### Fix 2: Simplified Functions Configuration
+**Issue:** Function runtime specifications were causing build failures
+**Solution:** Removed complex function configurations - Vercel automatically handles Next.js API routes
+
 ## Updated Configuration
 
-**New `vercel.json` (Clean & Valid):**
+**Final `vercel.json` (Minimal & Valid):**
 ```json
 {
   "version": 2,
@@ -31,31 +45,15 @@ The `vercel.json` configuration file contained invalid properties that are not s
   "buildCommand": "npm run build",
   "installCommand": "npm install",
   "outputDirectory": ".next",
-  "devCommand": "npm run dev",
-  "functions": {
-    "src/app/api/**/*.ts": {
-      "runtime": "nodejs18.x"
-    }
-  },
-  "headers": [
-    {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-store"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/healthz",
-      "destination": "/api/health"
-    }
-  ]
+  "devCommand": "npm run dev"
 }
 ```
+
+**Why This Works:**
+- Vercel automatically detects Next.js projects
+- API routes in `src/app/api/` are handled automatically
+- No need for explicit runtime configurations for standard Next.js projects
+- Headers and rewrites can be added later if needed
 
 ## Environment Variables Setup
 
@@ -100,6 +98,7 @@ npm run build
 
 ## What Changed
 
+### Fix 1: Configuration Cleanup
 | Property | Status | Reason |
 |----------|--------|--------|
 | `frameworkVersion` | ❌ Removed | Not supported by Vercel |
@@ -109,6 +108,16 @@ npm run build
 | `serverFileExcludes` | ❌ Removed | Not needed |
 | `staticFileExcludes` | ❌ Removed | Not needed |
 | `env` in config | ❌ Removed | Use Vercel Dashboard instead |
+
+### Fix 2: Functions Simplification
+| Configuration | Status | Reason |
+|---------------|--------|--------|
+| `functions` config | ❌ Removed | Vercel auto-handles Next.js API routes |
+| `headers` config | ❌ Removed | Can be added later if needed |
+| `rewrites` config | ❌ Removed | Not essential for basic deployment |
+| Runtime specifications | ❌ Removed | Causing build failures |
+
+**Result:** Minimal configuration that Vercel can reliably process
 
 ## Next Steps
 

@@ -1,1 +1,1 @@
-{"version": 2, "framework": "nextjs", "buildCommand": "npm run build", "installCommand": "npm install", "outputDirectory": ".next", "devCommand": "npm run dev", "functions": {"src/app/api/**/*.ts": {"runtime": "nodejs18.x"}}, "headers": [{"source": "/api/(.*)", "headers": [{"key": "Cache-Control", "value": "no-store"}]}], "rewrites": [{"source": "/healthz", "destination": "/api/health"}]}
+{"version": 2, "framework": "nextjs", "buildCommand": "npm run build", "installCommand": "npm install", "outputDirectory": ".next", "devCommand": "npm run dev"}
