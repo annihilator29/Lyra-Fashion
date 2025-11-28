@@ -1,6 +1,6 @@
 # Story 1.3: Database Schema & Core API Setup
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,26 +19,26 @@ so that we can store and retrieve application data.
 
 ## Tasks / Subtasks
 
-- [ ] Configure Supabase project connection. (AC: 1)
-  - [ ] Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.local`
-  - [ ] Install Supabase client: `npm install @supabase/ssr @supabase/supabase-js`
-- [ ] Implement Supabase client utilities. (AC: 6)
-  - [ ] Create `src/lib/supabase/server.ts` (using `createServerClient`)
-  - [ ] Create `src/lib/supabase/client.ts` (using `createBrowserClient`)
-- [ ] Create Database Schema via Migrations. (AC: 2, 3, 4)
-  - [ ] Initialize Supabase CLI locally (if not already): `npx supabase init`
-  - [ ] Create migration file: `npx supabase migration new init_schema`
-  - [ ] Define `profiles` table (extends auth.users)
-  - [ ] Define `products` table (including JSONB `transparency_data`)
-  - [ ] Enable RLS and add policies (e.g., Public read for products, Auth read/update for profiles)
-  - [ ] Apply migration locally or push to remote (depending on dev setup)
-- [ ] Generate TypeScript types.
-  - [ ] Run `npx supabase gen types typescript --project-id <id> > src/types/database.types.ts`
-- [ ] Implement Health Check API. (AC: 5)
-  - [ ] Create `src/app/api/health/route.ts`
-  - [ ] Return JSON: `{ status: 'ok', timestamp: ... }`
-- [ ] Verify connection and schema.
-  - [ ] Use a script or temporary page to fetch data from `products` (should be empty but successful)
+- [x] Configure Supabase project connection. (AC: 1)
+  - [x] Add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_ANON_KEY` to `.env.local`
+  - [x] Install Supabase client: `npm install @supabase/ssr @supabase/supabase-js`
+- [x] Implement Supabase client utilities. (AC: 6)
+  - [x] Create `src/lib/supabase/server.ts` (using `createServerClient`)
+  - [x] Create `src/lib/supabase/client.ts` (using `createBrowserClient`)
+- [x] Create Database Schema via Migrations. (AC: 2, 3, 4)
+  - [x] Initialize Supabase CLI locally (if not already): `npx supabase init`
+  - [x] Create migration file: `npx supabase migration new init_schema`
+  - [x] Define `profiles` table (extends auth.users)
+  - [x] Define `products` table (including JSONB `transparency_data`)
+  - [x] Enable RLS and add policies (e.g., Public read for products, Auth read/update for profiles)
+  - [x] Apply migration locally or push to remote (depending on dev setup)
+- [x] Generate TypeScript types.
+  - [x] Run `npx supabase gen types typescript --project-id <id> > src/types/database.types.ts`
+- [x] Implement Health Check API. (AC: 5)
+  - [x] Create `src/app/api/health/route.ts`
+  - [x] Return JSON: `{ status: 'ok', timestamp: ... }`
+- [x] Verify connection and schema.
+  - [x] Use a script or temporary page to fetch data from `products` (should be empty but successful)
 
 ## Dev Notes
 
@@ -76,4 +76,25 @@ Antigravity (Google Deepmind)
 
 ### Completion Notes List
 
+- Implemented complete Supabase database schema with profiles and products tables
+- Configured Row Level Security (RLS) policies for both tables
+- Created health check API endpoint at `/api/health` returning status and timestamp
+- Established Supabase client utilities for both server and browser environments
+- Generated TypeScript types for database schema
+- Created comprehensive test suite for API and database functionality
+- All acceptance criteria satisfied and tested
+
 ### File List
+
+- lyra-fashion/.env.local
+- lyra-fashion/supabase/config.toml
+- lyra-fashion/supabase/migrations/20251128_init_schema.sql
+- lyra-fashion/src/app/api/health/route.ts
+- lyra-fashion/src/lib/supabase/client.ts
+- lyra-fashion/src/lib/supabase/server.ts
+- lyra-fashion/src/lib/utils/test-connection.ts
+- lyra-fashion/src/types/database.types.ts
+- lyra-fashion/src/lib/utils/__tests__/health.test.ts
+- lyra-fashion/src/lib/supabase/__tests__/client.test.ts
+- lyra-fashion/src/lib/utils/validation-report.md
+- lyra-fashion/DATABASE_SETUP.md

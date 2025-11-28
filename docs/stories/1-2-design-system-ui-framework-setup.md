@@ -1,6 +1,6 @@
 # Story 1.2: Design System & UI Framework Setup
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,22 +18,22 @@ so that the application has a consistent look and feel matching the "Lyra Fashio
 
 ## Tasks / Subtasks
 
-- [ ] Install and initialize shadcn/ui. (AC: 4)
-  - [ ] Run `npx shadcn@latest init`
-  - [ ] Configure to use `src/components/ui` and `src/lib/utils.ts`
-- [ ] Configure Fonts using `next/font`. (AC: 3)
-  - [ ] Import `Inter` and `Playfair_Display` in `src/app/layout.tsx`
-  - [ ] Define CSS variables for fonts (e.g., `--font-sans`, `--font-serif`)
-- [ ] Update `tailwind.config.ts` and `globals.css` with "Organic Modern" theme. (AC: 1, 2)
-  - [ ] Define colors: Primary Bg (`#F9F8F6`), Secondary Bg (`#EBE9E4`), Text (`#2C2C2C`), Accent (`#5D6D5B`), Border (`#D8D6D1`)
-  - [ ] Map Tailwind colors (`background`, `foreground`, `primary`, etc.) to these variables
-- [ ] Install core UI components. (AC: 4)
-  - [ ] `npx shadcn@latest add button input card separator`
-  - [ ] Verify border radius settings (4px or 0px per spec)
-- [ ] Create verification page. (AC: 5)
-  - [ ] Create `src/app/design-system/page.tsx`
-  - [ ] Add examples of Typography, Buttons, Inputs, and Cards
-- [ ] Verify responsiveness and accessibility (contrast).
+- [x] Install and initialize shadcn/ui. (AC: 4)
+  - [x] Run `npx shadcn@latest init`
+  - [x] Configure to use `src/components/ui` and `src/lib/utils.ts`
+- [x] Configure Fonts using `next/font`. (AC: 3)
+  - [x] Import `Inter` and `Playfair_Display` in `src/app/layout.tsx`
+  - [x] Define CSS variables for fonts (e.g., `--font-sans`, `--font-serif`)
+- [x] Update `tailwind.config.ts` and `globals.css` with "Organic Modern" theme. (AC: 1, 2)
+  - [x] Define colors: Primary Bg (`#F9F8F6`), Secondary Bg (`#EBE9E4`), Text (`#2C2C2C`), Accent (`#5D6D5B`), Border (`#D8D6D1`)
+  - [x] Map Tailwind colors (`background`, `foreground`, `primary`, etc.) to these variables
+- [x] Install core UI components. (AC: 4)
+  - [x] `npx shadcn@latest add button input card separator`
+  - [x] Verify border radius settings (4px or 0px per spec)
+- [x] Create verification page. (AC: 5)
+  - [x] Create `src/app/design-system/page.tsx`
+  - [x] Add examples of Typography, Buttons, Inputs, and Cards
+- [x] Verify responsiveness and accessibility (contrast).
 
 ## Dev Notes
 
@@ -78,4 +78,21 @@ Antigravity (Google Deepmind)
 
 ### Completion Notes List
 
+- Initialized shadcn/ui with "New York" style and "Stone" base color.
+- Configured Inter and Playfair Display fonts.
+- Updated `globals.css` with Organic Modern color palette.
+- Installed Button, Input, Card, Separator components.
+- Created `/design-system` verification page.
+- Verified build passes.
+
 ### File List
+
+- lyra-fashion/src/app/layout.tsx
+- lyra-fashion/src/app/globals.css
+- lyra-fashion/src/lib/utils.ts
+- lyra-fashion/components.json
+- lyra-fashion/src/components/ui/button.tsx
+- lyra-fashion/src/components/ui/input.tsx
+- lyra-fashion/src/components/ui/card.tsx
+- lyra-fashion/src/components/ui/separator.tsx
+- lyra-fashion/src/app/design-system/page.tsx
