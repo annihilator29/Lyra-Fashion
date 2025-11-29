@@ -2,7 +2,7 @@
  * Lyra Fashion Database Seeding Script
  * Redeveloped: 2025-11-29
  * 
- * Seeds the products table with realistic products across categories.
+ * Seeds the products table with 22 realistic products across 4 categories.
  * Uses correct INTEGER pricing (cents) matching the database schema.
  * 
  * Usage:
@@ -79,7 +79,7 @@ interface Product {
  * CRITICAL: Prices are in CENTS (e.g., 8900 = $89.00)
  */
 const products: Product[] = [
-  // ==================== DRESSES ====================
+  // ==================== DRESSES (5 products) ====================
   {
     name: 'Organic Cotton Midi Dress',
     slug: 'organic-cotton-midi-dress',
@@ -165,7 +165,7 @@ const products: Product[] = [
     }
   },
 
-  // ==================== TOPS ====================
+  // ==================== TOPS (6 products) ====================
   {
     name: 'Organic Cotton T-Shirt',
     slug: 'organic-cotton-t-shirt',
@@ -261,6 +261,186 @@ const products: Product[] = [
       labor: 2300,
       transport: 500,
       markup: 1900
+    }
+  },
+
+  // ==================== OUTERWEAR (5 products) ====================
+  {
+    name: 'Organic Cotton Cardigan',
+    slug: 'organic-cotton-cardigan',
+    description: 'Cozy cardigan perfect for layering. Made from organic cotton with a relaxed fit and button-front closure. Ribbed cuffs and hem for added comfort.',
+    price: 11200, // $112.00
+    images: [
+      'https://images.unsplash.com/photo-1550904042-15b1d7e6e8b5?w=800'
+    ],
+    category: 'Outerwear',
+    transparency_data: {
+      fabric: 4200,
+      labor: 3600,
+      transport: 700,
+      markup: 2700
+    }
+  },
+  {
+    name: 'Wool Blend Coat',
+    slug: 'wool-blend-coat',
+    description: 'Elegant wool blend coat with tailored silhouette. Classic design with modern sustainability through 50% recycled wool fibers. Double-breasted with notch lapels.',
+    price: 32500, // $325.00
+    images: [
+      'https://images.unsplash.com/photo-1566479179817-c0a7bcf9e8b5?w=800'
+    ],
+    category: 'Outerwear',
+    transparency_data: {
+      fabric: 14500,
+      labor: 9200,
+      transport: 1400,
+      markup: 7400
+    }
+  },
+  {
+    name: 'Recycled Denim Jacket',
+    slug: 'recycled-denim-jacket',
+    description: 'Stylish denim jacket made from 80% recycled cotton denim. Durable construction with eco-friendly materials and classic styling. Adjustable waist tabs.',
+    price: 18900, // $189.00
+    images: [
+      'https://images.unsplash.com/photo-1585487000143-66d203d3e98e?w=800'
+    ],
+    category: 'Outerwear',
+    transparency_data: {
+      fabric: 6800,
+      labor: 5600,
+      transport: 950,
+      markup: 5550
+    }
+  },
+  {
+    name: 'Linen Utility Vest',
+    slug: 'linen-utility-vest',
+    description: 'Practical linen vest with multiple cargo pockets. Perfect for transitional weather with natural temperature regulation. Relaxed fit with adjustable side ties.',
+    price: 13800, // $138.00
+    images: [
+      'https://images.unsplash.com/photo-1485968579580-b8f02a3ae446?w=800'
+    ],
+    category: 'Outerwear',
+    transparency_data: {
+      fabric: 5100,
+      labor: 4200,
+      transport: 750,
+      markup: 3750
+    }
+  },
+  {
+    name: 'Quilted Puffer Jacket',
+    slug: 'quilted-puffer-jacket',
+    description: 'Warm puffer jacket with recycled synthetic insulation. Water-resistant outer shell and packable design. Filled with 100% recycled polyester fill.',
+    price: 22500, // $225.00
+    images: [
+      'https://images.unsplash.com/photo-1544966503-7cc5ac882d5f?w=800'
+    ],
+    category: 'Outerwear',
+    transparency_data: {
+      fabric: 9500,
+      labor: 6700,
+      transport: 1100,
+      markup: 5200
+    }
+  },
+
+  // ==================== ACCESSORIES (6 products) ====================
+  {
+    name: 'Organic Cotton Tote Bag',
+    slug: 'organic-cotton-tote-bag',
+    description: 'Spacious tote bag crafted from GOTS-certified organic cotton canvas. Durable construction with reinforced handles for everyday use. Unbleached natural color.',
+    price: 3500, // $35.00
+    images: [
+      'https://images.unsplash.com/photo-1593032457860-16fdc2e7e8b5?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 1200,
+      labor: 1100,
+      transport: 300,
+      markup: 900
+    }
+  },
+  {
+    name: 'Handwoven Silk Scarf',
+    slug: 'handwoven-silk-scarf',
+    description: 'Artisanal silk scarf with handwoven details by fair-trade artisans. Each piece is unique with beautiful draping and luxurious feel. Naturally dyed.',
+    price: 18500, // $185.00
+    images: [
+      'https://images.unsplash.com/photo-1585487000143-66d203d3e98e?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 8200,
+      labor: 5600,
+      transport: 800,
+      markup: 3900
+    }
+  },
+  {
+    name: 'Sustainable Leather Belt',
+    slug: 'sustainable-leather-belt',
+    description: 'Quality leather belt from vegetable-tanned, responsibly sourced hides. Classic design with brass hardware and adjustable sizing. Chrome-free tanning process.',
+    price: 8900, // $89.00
+    images: [
+      'https://images.unsplash.com/photo-1550904042-15b1d7e6e8b5?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 3800,
+      labor: 2500,
+      transport: 650,
+      markup: 1950
+    }
+  },
+  {
+    name: 'Bamboo Sunglasses',
+    slug: 'bamboo-sunglasses',
+    description: 'Eco-friendly sunglasses with bamboo frames and polarized lenses. UV400 protection with natural materials and lightweight comfort. Includes recycled case.',
+    price: 12900, // $129.00
+    images: [
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 4800,
+      labor: 4200,
+      transport: 750,
+      markup: 3150
+    }
+  },
+  {
+    name: 'Recycled Fabric Headband',
+    slug: 'recycled-fabric-headband',
+    description: 'Stylish headband made from upcycled fabric scraps. Elastic backing for comfortable fit with unique pattern combinations. Zero-waste production.',
+    price: 1800, // $18.00
+    images: [
+      'https://images.unsplash.com/photo-1566479179817-c0a7bcf9e8b5?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 600,
+      labor: 700,
+      transport: 200,
+      markup: 300
+    }
+  },
+  {
+    name: 'Organic Cotton Socks Set',
+    slug: 'organic-cotton-socks-set',
+    description: 'Comfortable 3-pair sock set made from organic cotton with a touch of elastane. Soft, breathable, and durable with reinforced heel and toe. Unisex sizing.',
+    price: 2400, // $24.00
+    images: [
+      'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=800'
+    ],
+    category: 'Accessories',
+    transparency_data: {
+      fabric: 900,
+      labor: 800,
+      transport: 250,
+      markup: 450
     }
   }
 ];
