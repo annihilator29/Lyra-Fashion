@@ -44,9 +44,9 @@ development_status:
   epic-1-retrospective: optional
 
   epic-2: contexted
-  2-1-product-data-model-seeding: in-progress
-  2-2-product-listing-page-plp: ready-for-dev
-  2-3-product-filtering-sorting: ready-for-dev
+  2-1-product-data-model-seeding: done
+  2-2-product-listing-page-plp: done
+  2-3-product-filtering-sorting: done
   2-4-product-search-implementation: ready-for-dev
   2-5-product-detail-page-pdp-core-info: ready-for-dev
   epic-2-retrospective: optional
