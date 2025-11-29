@@ -20,6 +20,17 @@ export interface TransparencyData {
 }
 
 /**
+ * Craftsmanship storytelling content
+ * Used to display product origin, materials, and artisan information
+ */
+export interface CraftsmanshipContent {
+  origin_story: string;      // Story of where/how the product was made
+  material_details: string;  // Details about materials used
+  artisan_note: string;      // Note from the artisan/maker
+  images: string[];          // Array of image URLs showcasing craftsmanship
+}
+
+/**
  * Product categories
  */
 export type ProductCategory = 'Dresses' | 'Tops' | 'Outerwear' | 'Accessories';
@@ -36,6 +47,7 @@ export interface Product {
   images: string[];                        // Array of image URLs
   category: ProductCategory;
   transparency_data: TransparencyData | null;
+  craftsmanship_content: CraftsmanshipContent | null;  // Craftsmanship storytelling data
   created_at: string;                      // ISO 8601 timestamp
   updated_at: string;                      // ISO 8601 timestamp
 }
@@ -52,6 +64,7 @@ export interface ProductInsert {
   images?: string[];
   category: ProductCategory;
   transparency_data?: TransparencyData | null;
+  craftsmanship_content?: CraftsmanshipContent | null;
   created_at?: string;
   updated_at?: string;
 }
@@ -68,6 +81,7 @@ export interface ProductUpdate {
   images?: string[];
   category?: ProductCategory;
   transparency_data?: TransparencyData | null;
+  craftsmanship_content?: CraftsmanshipContent | null;
   updated_at?: string;
 }
 
@@ -165,6 +179,16 @@ export interface CategorySummary {
   productCount: number;
   avgPriceCents: number;
   avgPriceFormatted: string;
+}
+
+// ==================== Wishlist Types ====================
+
+export interface WishlistItem {
+  id: string;
+  user_id: string;
+  product_id: string;
+  created_at: string;
+  product: Product;
 }
 
 // ==================== Utility Functions ====================

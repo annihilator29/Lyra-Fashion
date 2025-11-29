@@ -1,0 +1,12 @@
+---
+description: Daily Standup
+---
+
+description = "Executes the Daily Standup task from the BMad Method."
+prompt = """
+Execute the following BMad Method task workflow:
+
+@bmad/bmm/tasks/daily-standup.xml
+
+Follow all instructions and complete the task as defined.
+"""

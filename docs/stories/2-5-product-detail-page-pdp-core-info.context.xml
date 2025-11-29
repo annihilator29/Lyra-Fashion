@@ -14,22 +14,22 @@
     <iWant>to view detailed information about a specific product</iWant>
     <soThat>I can make an informed purchase decision</soThat>
     <tasks>
-- [ ] Create PDP Layout. (AC: 1, 2)
-  - [ ] `src/app/shop/product/[slug]/page.tsx`.
-  - [ ] Fetch product by slug using `getProductBySlug`.
-  - [ ] Handle 404 if product not found.
-- [ ] Implement Product Gallery. (AC: 2)
-  - [ ] Create `src/components/product/product-gallery.tsx`.
-  - [ ] Display main image and thumbnails.
-- [ ] Implement Product Info Section. (AC: 2, 4, 5)
-  - [ ] Display Name, Price, Description.
-  - [ ] Create `src/components/product/variant-selector.tsx` (Size/Color).
-  - [ ] Add "Add to Bag" button.
-- [ ] Implement Transparency Module. (AC: 3)
-  - [ ] Create `src/components/product/transparency-card.tsx`.
-  - [ ] Visualize `transparency_data` (Fabric, Labor, Transport, Markup).
-- [ ] Add SEO Metadata. (AC: 6)
-  - [ ] Use `generateMetadata` in `page.tsx`.
+- [x] Create PDP Layout. (AC: 1, 2)
+  - [x] `src/app/shop/product/[slug]/page.tsx`.
+  - [x] Fetch product by slug using `getProductBySlug`.
+  - [x] Handle 404 if product not found.
+- [x] Implement Product Gallery. (AC: 2)
+  - [x] Create `src/components/product/product-gallery.tsx`.
+  - [x] Display main image and thumbnails.
+- [x] Implement Product Info Section. (AC: 2, 4, 5)
+  - [x] Display Name, Price, Description.
+  - [x] Create `src/components/product/variant-selector.tsx` (Size/Color).
+  - [x] Add "Add to Bag" button.
+- [x] Implement Transparency Module. (AC: 3)
+  - [x] Create `src/components/product/transparency-card.tsx`.
+  - [x] Visualize `transparency_data` (Fabric, Labor, Transport, Markup).
+- [x] Add SEO Metadata. (AC: 6)
+  - [x] Use `generateMetadata` in `page.tsx`.
     </tasks>
   </story>
 

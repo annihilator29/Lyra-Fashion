@@ -1,0 +1,12 @@
+---
+description: Workflow
+---
+
+description = "Executes the Workflow task from the BMad Method."
+prompt = """
+Execute the following BMad Method task workflow:
+
+@bmad/core/tasks/workflow.xml
+
+Follow all instructions and complete the task as defined.
+"""

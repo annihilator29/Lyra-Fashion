@@ -13,6 +13,7 @@ import type { Product } from '@/types/database.types';
 export interface ProductQueryOptions {
     category?: string;
     sortBy?: 'price_asc' | 'price_desc' | 'newest' | 'name_asc' | 'name_desc';
+    query?: string;
     limit?: number;
     offset?: number;
 }
@@ -39,6 +40,7 @@ export async function getProducts(
     const {
         category,
         sortBy = 'newest',
+        query: searchQuery,
         limit,
         offset = 0
     } = options;
@@ -52,6 +54,12 @@ export async function getProducts(
         // Apply category filter
         if (category && category !== 'all') {
             query = query.eq('category', category);
+        }
+
+        // Apply search query filter
+        if (searchQuery && searchQuery.trim()) {
+            const searchTerm = `%${searchQuery.trim()}%`;
+            query = query.or(`name.ilike.${searchTerm},description.ilike.${searchTerm}`);
         }
 
         // Apply sorting

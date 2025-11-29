@@ -12,6 +12,7 @@ import { ProductGrid } from '@/components/product/product-grid';
 import { ProductCardSkeleton } from '@/components/product/product-card';
 import { FilterSidebar } from '@/components/shop/filter-sidebar';
 import { SortDropdown } from '@/components/shop/sort-dropdown';
+import { SearchBar } from '@/components/shop/search-bar';
 import type { ProductQueryOptions } from '@/lib/api/products';
 
 export const metadata: Metadata = {
@@ -28,6 +29,7 @@ interface ShopPageProps {
     searchParams: Promise<{
         category?: string;
         sort?: string;
+        q?: string;
     }>;
 }
 
@@ -35,6 +37,7 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
     const params = await searchParams;
     const category = params.category;
     const sort = params.sort;
+    const query = params.q;
 
     // Build query options
     const queryOptions: ProductQueryOptions = {};
@@ -45,6 +48,10 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
     if (sort) {
         queryOptions.sortBy = sort as ProductQueryOptions['sortBy'];
+    }
+
+    if (query) {
+        queryOptions.query = query;
     }
 
     // Fetch products
@@ -61,13 +68,26 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
                             <p className="mt-2 text-sm text-gray-600">
                                 {total} {total === 1 ? 'product' : 'products'}
                                 {category && ` in ${category}`}
+                                {query && ` matching "${query}"`}
                             </p>
                         </div>
 
-                        {/* Sort Dropdown - Desktop */}
-                        <div className="hidden sm:block">
-                            <SortDropdown />
+                        <div className="flex items-center gap-4">
+                            {/* Search Bar - Desktop */}
+                            <div className="hidden sm:block">
+                                <SearchBar />
+                            </div>
+
+                            {/* Sort Dropdown - Desktop */}
+                            <div className="hidden sm:block">
+                                <SortDropdown />
+                            </div>
                         </div>
+                    </div>
+
+                    {/* Search Bar - Mobile */}
+                    <div className="mt-6 sm:hidden">
+                        <SearchBar />
                     </div>
 
                     {/* Sort Dropdown - Mobile */}
@@ -92,9 +112,23 @@ export default async function ShopPage({ searchParams }: ShopPageProps) {
 
                     {/* Product Grid */}
                     <main>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                            <ProductGrid products={products} />
-                        </div>
+                        {products.length === 0 ? (
+                            <div className="text-center py-12">
+                                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                                    No products found
+                                </h3>
+                                <p className="text-gray-600 mb-4">
+                                    {query 
+                                        ? `No products match "${query}". Try a different search term.`
+                                        : 'No products available in this category.'
+                                    }
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                                <ProductGrid products={products} />
+                            </div>
+                        )}
                     </main>
                 </div>
             </div>
