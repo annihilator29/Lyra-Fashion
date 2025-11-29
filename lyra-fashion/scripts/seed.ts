@@ -458,7 +458,7 @@ function validateTransparencyData(product: Product): boolean {
 
 async function seedDatabase() {
   try {
-    console.log('🌱 Starting Lyra Fashion database seeding...\\n');
+    console.log('🌱 Starting Lyra Fashion database seeding...\n');
 
     // Validate all products
     console.log('📋 Validating product data...');
@@ -490,7 +490,7 @@ async function seedDatabase() {
       console.error('❌ Error clearing products:', deleteError.message);
       throw deleteError;
     }
-    console.log(`   ✅ Cleared ${count || 0} existing products\\n`);
+    console.log(`   ✅ Cleared ${count || 0} existing products\n`);
 
     // Insert new products
     console.log(`📦 Inserting ${products.length} products...`);
@@ -504,10 +504,10 @@ async function seedDatabase() {
       throw error;
     }
 
-    console.log(`   ✅ Successfully inserted ${data?.length || 0} products\\n`);
+    console.log(`   ✅ Successfully inserted ${data?.length || 0} products\n`);
 
     // Verification queries
-    console.log('🔍 Running verification queries...\\n');
+    console.log('🔍 Running verification queries...\n');
 
     // Total count
     const { count: totalCount, error: countError } = await supabase
@@ -533,7 +533,7 @@ async function seedDatabase() {
         return acc;
       }, {});
 
-      console.log('\\n   📦 Products by category:');
+      console.log('\n   📦 Products by category:');
       Object.entries(categories).forEach(([category, stats]) => {
         const avgPrice = (stats.totalPrice / stats.count / 100).toFixed(2);
         console.log(`      - ${category}: ${stats.count} products (avg: $${avgPrice})`);
@@ -549,13 +549,13 @@ async function seedDatabase() {
     if (!priceError && priceData && priceData.length > 0) {
       const minPrice = (priceData[0].price / 100).toFixed(2);
       const maxPrice = (priceData[priceData.length - 1].price / 100).toFixed(2);
-      console.log(`\\n   💰 Price range: $${minPrice} - $${maxPrice}`);
+      console.log(`\n   💰 Price range: $${minPrice} - $${maxPrice}`);
     }
 
-    console.log('\\n🎉 Database seeding completed successfully!\\n');
+    console.log('\n🎉 Database seeding completed successfully!\n');
 
   } catch (error) {
-    console.error('\\n❌ Seeding failed:', error);
+    console.error('\n❌ Seeding failed:', error);
     process.exit(1);
   }
 }
