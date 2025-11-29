@@ -16,7 +16,7 @@ export async function getProfile() {
   const supabase = await createClient();
 
   const { data: { user }, error: userError } = await supabase.auth.getUser();
-  
+
   if (userError || !user) {
     console.error('Error getting user:', userError);
     return null;
@@ -35,23 +35,23 @@ export async function getProfile() {
     return {
       id: user.id,
       full_name: null,
-      email: user.email
+      email: user.email ?? null
     };
   }
 
   // Combine profile data with user email
   return {
     ...profileData,
-    email: user.email
+    email: user.email ?? null
   };
 }
 
 // Server action to update profile
 export async function updateProfile(data: ProfileUpdateData) {
   const supabase = await createClient();
-  
+
   const { data: userData, error: authError } = await supabase.auth.getUser();
-  
+
   if (authError || !userData.user) {
     return { error: 'User not authenticated' };
   }
@@ -67,7 +67,7 @@ export async function updateProfile(data: ProfileUpdateData) {
   // Update the profile in the database
   const { error } = await supabase
     .from('profiles')
-    .update({ 
+    .update({
       full_name,
       updated_at: new Date().toISOString()
     })
@@ -78,8 +78,8 @@ export async function updateProfile(data: ProfileUpdateData) {
     return { error: 'Failed to update profile' };
   }
 
- // Revalidate the profile page to reflect the changes
- revalidatePath('/account/profile');
+  // Revalidate the profile page to reflect the changes
+  revalidatePath('/account/profile');
 
- return { success: true };
+  return { success: true };
 }
