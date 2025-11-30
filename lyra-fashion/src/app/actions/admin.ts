@@ -53,3 +53,41 @@ export async function getAdminMetrics(): Promise<AdminMetrics> {
     lowStockItems: lowStockItems ?? 0,
   };
 }
+
+// Server action to update inventory stock with admin role check
+export async function updateInventoryAction(id: string, quantity: number): Promise<{ success: boolean; error?: string }> {
+  const supabase = await createClient();
+
+  // Check if user is authenticated and has admin role
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return { success: false, error: 'User not authenticated' };
+  }
+
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single();
+
+  if (profileError || !profile || profile.role !== 'admin') {
+    return { success: false, error: 'Insufficient permissions' };
+  }
+
+  // Update inventory item
+  const { error } = await supabase
+    .from('inventory')
+    .update({
+      quantity,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', id);
+
+  if (error) {
+    console.error('Error updating inventory:', error);
+    return { success: false, error: 'Failed to update inventory' };
+  }
+
+  return { success: true };
+}

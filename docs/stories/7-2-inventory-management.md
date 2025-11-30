@@ -1,6 +1,6 @@
 # Story 7.2: Inventory Management
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,23 +18,23 @@ so that I can ensure stock accuracy and prevent overselling.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Database & Service Layer (AC: 1, 2, 4)
-  - [ ] Create `inventory` table in Supabase (if not already created in 7.1 or earlier) with `product_id`, `variant_id`, `quantity`, `low_stock_threshold`.
-  - [ ] Implement `InventoryService` with methods: `getInventoryList`, `updateStock`.
-  - [ ] Create Server Action `updateInventoryAction(id, quantity)` with admin role check.
-- [ ] Task 2: Inventory List UI (AC: 1, 3, 5)
-  - [ ] Create `src/app/admin/inventory/page.tsx`.
-  - [ ] Implement data table using `tanstack/react-table` (or shadcn `Table`) to display products.
-  - [ ] Add columns: Product Name, Variant (Size/Color), SKU (if avail), Current Stock, Status.
-  - [ ] Implement visual highlighting for low stock items (quantity < threshold).
-- [ ] Task 3: Stock Update Interaction (AC: 2, 4)
-  - [ ] Create `StockUpdateDialog` or inline edit component.
-  - [ ] Connect update form to `updateInventoryAction`.
-  - [ ] Implement toast notification on success/error.
-- [ ] Task 4: E2E Tests (AC: 1-5)
-  - [ ] Test admin access to inventory page.
-  - [ ] Test updating stock and verifying the new value persists.
-  - [ ] Verify low stock indicator appears when quantity is low.
+- [x] Task 1: Database & Service Layer (AC: 1, 2, 4)
+  - [x] Create `inventory` table in Supabase (if not already created in 7.1 or earlier) with `product_id`, `variant_id`, `quantity`, `low_stock_threshold`.
+  - [x] Implement `InventoryService` with methods: `getInventoryList`, `updateStock`.
+  - [x] Create Server Action `updateInventoryAction(id, quantity)` with admin role check.
+- [x] Task 2: Inventory List UI (AC: 1, 3, 5)
+  - [x] Create `src/app/admin/inventory/page.tsx`.
+  - [x] Implement data table using `tanstack/react-table` (or shadcn `Table`) to display products.
+  - [x] Add columns: Product Name, Variant (Size/Color), SKU (if avail), Current Stock, Status.
+  - [x] Implement visual highlighting for low stock items (quantity < threshold).
+- [x] Task 3: Stock Update Interaction (AC: 2, 4)
+  - [x] Create `StockUpdateDialog` or inline edit component.
+  - [x] Connect update form to `updateInventoryAction`.
+  - [x] Implement toast notification on success/error.
+- [x] Task 4: E2E Tests (AC: 1-5)
+  - [x] Test admin access to inventory page.
+  - [x] Test updating stock and verifying the new value persists.
+  - [x] Verify low stock indicator appears when quantity is low.
 
 ## Dev Notes
 
@@ -68,3 +68,10 @@ Antigravity
 ### Completion Notes List
 
 ### File List
+
+- `src/services/admin/inventory-service.ts`
+- `src/app/actions/admin.ts` (updated)
+- `src/app/admin/inventory/page.tsx`
+- `src/components/admin/inventory-table.tsx`
+- `tests/e2e/inventory-management.spec.ts`
+- `supabase/migrations/20251130_add_variant_id_to_inventory.sql`
