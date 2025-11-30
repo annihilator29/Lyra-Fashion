@@ -28,6 +28,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${inter.variable} ${playfair.variable} antialiased font-sans`}
+        suppressHydrationWarning={true}
       >
         <Header />
         <main className="flex-1">
