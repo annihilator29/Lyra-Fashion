@@ -1,12 +1,11 @@
 installation:
   version: 6.0.0-alpha.7
-  installDate: '2025-11-27T10:11:02.452Z'
-  lastUpdated: '2025-11-27T10:11:02.452Z'
+  installDate: '2025-11-30T05:26:10.763Z'
+  lastUpdated: '2025-11-30T05:26:10.763Z'
 modules:
   - core
   - bmm
 ides:
-  - opencode
   - kilo
   - gemini
   - qwen

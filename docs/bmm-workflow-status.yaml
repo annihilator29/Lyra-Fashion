@@ -32,7 +32,7 @@ workflow_status:
   # Phase 0: Discovery (Optional) - based on your choices
   product-brief: "docs/bmm-product-brief-Lyra-Fashion-2025-11-25.md"
 
-  # Phase 1: Planning  
+  # Phase 1: Planning
   prd: "docs/PRD.md"
   validate-prd: "docs/epics.md"
   create-design: "docs/ux-design-specification.md"
@@ -43,4 +43,4 @@ workflow_status:
   solutioning-gate-check: "docs/implementation-readiness-report-2025-11-27.md"
 
   # Phase 3: Implementation
-  sprint-planning: "required"
+  sprint-planning: "docs/sprint-plan.md"

@@ -2,10 +2,12 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { useCartStore } from '@/stores/cart-store';
+import { useCartStore } from '@/lib/store/cart';
 
 export function OrderSummary() {
-  const { items, subtotal, shippingCost, total } = useCartStore();
+  const { items, getSubtotal } = useCartStore();
+  const shippingCost = 10; // Fixed shipping cost for MVP
+  const total = getSubtotal() + shippingCost;
 
   return (
     <Card>
@@ -33,7 +35,7 @@ export function OrderSummary() {
           <div className="space-y-2">
             <div className="flex justify-between">
               <span>Subtotal</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>${getSubtotal().toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span>Shipping</span>

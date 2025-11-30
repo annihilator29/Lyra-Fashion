@@ -1,8 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { Product } from '@/types/database.types';
 
-export function VariantSelector() {
+interface VariantSelectorProps {
+  product: Product;
+}
+
+export function VariantSelector({ product }: VariantSelectorProps) {
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
