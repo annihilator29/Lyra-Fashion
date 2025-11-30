@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS public.inventory (
     product_id UUID NOT NULL REFERENCES public.products(id) ON DELETE CASCADE,
     quantity INTEGER NOT NULL DEFAULT 0,
     reserved_quantity INTEGER NOT NULL DEFAULT 0, -- Quantity reserved for pending orders
+    low_stock_threshold INTEGER NOT NULL DEFAULT 5,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
@@ -20,12 +21,24 @@ CREATE TRIGGER handle_inventory_updated_at
 ALTER TABLE public.inventory ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies for inventory
--- Only authenticated users can access inventory data (for admin purposes)
-CREATE POLICY "Authenticated users can view inventory" ON public.inventory
-    FOR SELECT TO authenticated USING (true);
+-- Only admin users can access inventory data (for admin purposes)
+CREATE POLICY "Admins can view inventory" ON public.inventory
+    FOR SELECT TO authenticated USING (
+        EXISTS (
+            SELECT 1 FROM public.profiles
+            WHERE profiles.id = auth.uid()
+            AND profiles.role = 'admin'
+        )
+    );
 
-CREATE POLICY "Authenticated users can manage inventory" ON public.inventory
-    FOR ALL TO authenticated USING (true);
+CREATE POLICY "Admins can manage inventory" ON public.inventory
+    FOR ALL TO authenticated USING (
+        EXISTS (
+            SELECT 1 FROM public.profiles
+            WHERE profiles.id = auth.uid()
+            AND profiles.role = 'admin'
+        )
+    );
 
 -- Indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_inventory_product_id ON public.inventory(product_id);

@@ -11,6 +11,9 @@
 | 2025-11-30 | 6.1 | 6 | Enhancement | Med | TBD | Open | Implement production status tracking timeline as specified in Epic tech spec (AC #6.2.2) [file: lyra-fashion/src/app/account/orders/[id]/page.tsx] |
 | 2025-11-30 | 6.1 | 6 | TechDebt | Med | TBD | Open | Add missing E2E tests for authenticated users with order data [file: lyra-fashion/tests/e2e/order-history.spec.ts] |
 | 2025-11-30 | 6.1 | 6 | TechDebt | Low | TBD | Open | Improve shipping_address typing for better type safety [file: lyra-fashion/src/types/database.types.ts:200-207] |
+| 2025-11-30 | 7.1 | 7 | Bug | High | TBD | Open | Update the `inventory` table's RLS policy in the migration file to restrict access to admin users only. [file: `supabase/migrations/20251130_add_inventory_table.sql`] |
+| 2025-11-30 | 7.1 | 7 | Bug | High | TBD | Open | Modify the `AdminLayout.tsx` or `useUser.ts` hook to redirect unauthorized users to the login or home page, satisfying AC2 and fixing the failing E2E test. [file: `src/app/admin/layout.tsx`] |
+| 2025-11-30 | 7.1 | 7 | TechDebt | Low | TBD | Open | Add the `low_stock_threshold` column to the `inventory` table migration and update the `getAdminMetrics` server action to use it instead of a hardcoded value. [file: `supabase/migrations/20251130_add_inventory_table.sql`, `src/app/actions/admin.ts`]
 
 ---
 

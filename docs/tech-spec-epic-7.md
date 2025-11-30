@@ -128,3 +128,11 @@ create table inventory (
 
 -   **Unit:** Test RBAC logic.
 -   **E2E:** Admin login, update stock, check customer view.
+
+---
+
+### Post-Review Follow-ups
+
+-   [High] Fix RLS Policy: Update the `inventory` table's RLS policy in the migration file to restrict access to admin users only. (Story 7.1) [file: `supabase/migrations/20251130_add_inventory_table.sql`]
+-   [High] Implement Redirect: Modify the `AdminLayout.tsx` or `useUser.ts` hook to redirect unauthorized users to the login or home page, satisfying AC2 and fixing the failing E2E test. (Story 7.1) [file: `src/app/admin/layout.tsx`]
+-   [Low] Add DB Column: Add the `low_stock_threshold` column to the `inventory` table migration and update the `getAdminMetrics` server action to use it instead of a hardcoded value. (Story 7.1) [file: `supabase/migrations/20251130_add_inventory_table.sql`, `src/app/actions/admin.ts`]

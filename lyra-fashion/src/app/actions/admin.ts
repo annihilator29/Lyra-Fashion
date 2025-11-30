@@ -34,16 +34,18 @@ export async function getAdminMetrics(): Promise<AdminMetrics> {
     throw new Error('Failed to fetch order count');
   }
 
-  // Query for low stock items (items with quantity <= 5, configurable threshold)
-  const { count: lowStockItems, error: lowStockError } = await supabase
+  // Query for low stock items (items with quantity <= low_stock_threshold)
+  const { data: lowStockData, error: lowStockError } = await supabase
     .from('inventory')
-    .select('*', { count: 'exact', head: true })
-    .lte('quantity', 5); // Consider items with 5 or fewer as low stock
+    .select('quantity, low_stock_threshold');
 
   if (lowStockError) {
     console.error('Error fetching low stock items:', lowStockError);
     throw new Error('Failed to fetch low stock items');
   }
+
+  // Count items where quantity <= low_stock_threshold
+  const lowStockItems = lowStockData.filter(item => item.quantity <= item.low_stock_threshold).length;
 
   return {
     totalRevenue,

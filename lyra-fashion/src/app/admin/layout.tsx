@@ -1,6 +1,7 @@
 'use client';
 
 import { ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
 import { Sidebar } from '@/components/admin/sidebar';
 import { useUser } from '@/hooks/useUser';
 
@@ -10,6 +11,7 @@ interface AdminLayoutProps {
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const { user, isLoading, isCheckingRole } = useUser();
+  const router = useRouter();
 
   // Show loading state while checking authentication/role
   if (isLoading || isCheckingRole) {
@@ -23,14 +25,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   // Check if user exists and has admin role
   if (!user || user.role !== 'admin') {
     // Redirect to home page if not authenticated or not an admin
-    // This would be handled by the hook but let's return a message just in case
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-red-500 text-lg">
-          Access denied. You must be an admin to view this page.
-        </div>
-      </div>
-    );
+    router.push('/');
+    return null; // Return null to render nothing since we're redirecting
   }
 
   return (
