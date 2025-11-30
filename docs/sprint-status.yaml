@@ -72,10 +72,10 @@ development_status:
 
   epic-6: contexted
   6-1-order-history-status: done
-  6-2-production-status-tracking: review
+  6-2-production-status-tracking: done
   epic-6-retrospective: optional
 
   epic-7: contexted
-  7-1-admin-dashboard: ready-for-dev
+  7-1-admin-dashboard: review
   7-2-inventory-management: ready-for-dev
   epic-7-retrospective: optional
