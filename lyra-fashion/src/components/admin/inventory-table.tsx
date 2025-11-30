@@ -11,14 +11,18 @@ import { Label } from '@/components/ui/label';
 
 interface InventoryTableProps {
   initialData: InventoryItem[];
+  optimisticData?: InventoryItem[];
   onUpdate?: (itemId: string, newQuantity: number) => void;
 }
 
-export default function InventoryTable({ initialData, onUpdate }: InventoryTableProps) {
+export default function InventoryTable({ initialData, optimisticData, onUpdate }: InventoryTableProps) {
   const [inventoryItems] = useState(initialData);
   const [openDialogId, setOpenDialogId] = useState<string | null>(null);
   const [quantityInput, setQuantityInput] = useState<string>('');
   const [loading, setLoading] = useState(false);
+
+  // Use optimistic data if available, otherwise fallback to initial data
+  const displayItems = optimisticData && optimisticData.length > 0 ? optimisticData : inventoryItems;
 
   const inventoryService = new InventoryService();
 
@@ -92,7 +96,7 @@ export default function InventoryTable({ initialData, onUpdate }: InventoryTable
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {inventoryItems.map((item) => (
+          {displayItems.map((item) => (
             <tr key={item.id}>
               <td className="px-6 py-4 whitespace-nowrap">
                 <div className="flex items-center">
@@ -138,9 +142,19 @@ export default function InventoryTable({ initialData, onUpdate }: InventoryTable
                   variant="outline"
                   size="sm"
                   onClick={() => openDialog(item.id, item.quantity)}
+                  disabled={loading && openDialogId === item.id}
                 >
-                  <Edit3 className="h-4 w-4 mr-2" />
-                  Update
+                  {loading && openDialogId === item.id ? (
+                    <>
+                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      Updating...
+                    </>
+                  ) : (
+                    <>
+                      <Edit3 className="h-4 w-4 mr-2" />
+                      Update
+                    </>
+                  )}
                 </Button>
               </td>
             </tr>
@@ -149,11 +163,11 @@ export default function InventoryTable({ initialData, onUpdate }: InventoryTable
       </table>
 
       {/* Dialog for updating stock */}
-      {openDialogId && inventoryItems.find(item => item.id === openDialogId) && (
+      {openDialogId && displayItems.find(item => item.id === openDialogId) && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-md">
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Update Stock for {inventoryItems.find(item => item.id === openDialogId)?.product_name}
+              Update Stock for {displayItems.find(item => item.id === openDialogId)?.product_name}
             </h3>
 
             <div className="mb-4">

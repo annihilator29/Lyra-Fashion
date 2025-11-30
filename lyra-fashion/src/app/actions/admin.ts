@@ -1,6 +1,7 @@
 'use server';
 
 import { createClient } from '@/lib/supabase/server';
+import { revalidateTag } from 'next/cache';
 
 interface AdminMetrics {
   totalRevenue: number; // in cents
@@ -88,6 +89,11 @@ export async function updateInventoryAction(id: string, quantity: number): Promi
     console.error('Error updating inventory:', error);
     return { success: false, error: 'Failed to update inventory' };
   }
+
+  // Revalidate cache for customer-facing product pages to ensure stock changes are immediately reflected
+  // Using both a general product tag and the specific inventory item tag
+  revalidateTag('inventory');
+  revalidateTag(`inventory-${id}`);
 
   return { success: true };
 }

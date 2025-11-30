@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useOptimistic } from 'react';
 import { useTransition } from 'react';
 import { useRouter } from 'next/navigation';
 import { InventoryService, type InventoryItem } from '@/services/admin/inventory-service';
@@ -16,6 +16,15 @@ export default function InventoryPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [isPending, startTransition] = useTransition();
+
+  const [optimisticItems, setOptimisticItems] = useOptimistic<InventoryItem[], { id: string; newQuantity: number }>(
+    [],
+    (state, { id, newQuantity }) => {
+      return state.map(item =>
+        item.id === id ? { ...item, quantity: newQuantity } : item
+      );
+    }
+  );
 
   const router = useRouter();
   const inventoryService = new InventoryService();
@@ -45,6 +54,9 @@ export default function InventoryPage() {
       return;
     }
 
+    // Optimistically update the UI
+    setOptimisticItems({ id, newQuantity });
+
     startTransition(async () => {
       try {
         const result = await updateInventoryAction(id, newQuantity);
@@ -58,10 +70,16 @@ export default function InventoryPage() {
           setTotalPages(pages);
         } else {
           toast.error(result.error || 'Failed to update inventory');
+          // If update failed, revert optimistic update by reloading data
+          const { data } = await inventoryService.getInventoryList(currentPage);
+          setInventoryItems(data);
         }
       } catch (error) {
         console.error('Error updating inventory:', error);
         toast.error('Error updating inventory');
+        // If update failed, revert optimistic update by reloading data
+        const { data } = await inventoryService.getInventoryList(currentPage);
+        setInventoryItems(data);
       }
     });
   };
@@ -98,6 +116,7 @@ export default function InventoryPage() {
 
       <InventoryTable
         initialData={inventoryItems}
+        optimisticData={optimisticItems}
         onUpdate={handleUpdateStock}
       />
 
