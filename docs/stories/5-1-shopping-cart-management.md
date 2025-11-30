@@ -1,6 +1,6 @@
 # Story 5.1: Shopping Cart Management
 
-Status: ready-for-dev
+Status: done
 
 ## Story
 
@@ -19,26 +19,26 @@ so that I can review items before checkout.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Setup Zustand Store (AC: 1, 3, 4, 5)
-  - [ ] Install `zustand`
-  - [ ] Create `src/lib/store/cart.ts`
-  - [ ] Implement `addItem`, `removeItem`, `updateQuantity`, `clearCart` actions
-  - [ ] Configure persistence with `persist` middleware
-- [ ] Task 2: Create Add to Cart Component (AC: 1)
-  - [ ] Create `AddToCartButton` component
-  - [ ] Connect to store's `addItem`
-  - [ ] Handle variant selection (Size/Color)
-- [ ] Task 3: Create Cart Page (AC: 2, 3, 4)
-  - [ ] Create `src/app/(shop)/cart/page.tsx`
-  - [ ] Display cart items table/list
-  - [ ] Implement quantity controls (+/-)
-  - [ ] Implement remove button
-  - [ ] Display subtotal and total
-- [ ] Task 4: Update Header Cart Icon (AC: 6)
-  - [ ] Connect Header component to store
-  - [ ] Display badge with item count (handle hydration mismatch)
-- [ ] Task 5: Unit Tests (AC: 1-5)
-  - [ ] Test Zustand store logic (add, remove, update, persist)
+- [x] Task 1: Setup Zustand Store (AC: 1, 3, 4, 5)
+  - [x] Install `zustand`
+  - [x] Create `src/lib/store/cart.ts`
+  - [x] Implement `addItem`, `removeItem`, `updateQuantity`, `clearCart` actions
+  - [x] Configure persistence with `persist` middleware
+- [x] Task 2: Create Add to Cart Component (AC: 1)
+  - [x] Create `AddToCartButton` component
+  - [x] Connect to store's `addItem`
+  - [x] Handle variant selection (Size/Color)
+- [x] Task 3: Create Cart Page (AC: 2, 3, 4)
+  - [x] Create `src/app/(shop)/cart/page.tsx`
+  - [x] Display cart items table/list
+  - [x] Implement quantity controls (+/-)
+  - [x] Implement remove button
+  - [x] Display subtotal and total
+- [x] Task 4: Update Header Cart Icon (AC: 6)
+  - [x] Connect Header component to store
+  - [x] Display badge with item count (handle hydration mismatch)
+- [x] Task 5: Unit Tests (AC: 1-5)
+  - [x] Test Zustand store logic (add, remove, update, persist)
 
 ## Dev Notes
 
@@ -72,4 +72,19 @@ Antigravity
 
 ### Completion Notes List
 
+- Implemented Zustand store with persistence for cart management.
+- Created `AddToCart` component with variant selection.
+- Updated `Header` to show cart icon with real-time item count.
+- Created `CartPage` to manage cart items.
+- Added comprehensive unit tests for the store.
+
 ### File List
+
+- lyra-fashion/package.json
+- lyra-fashion/src/lib/store/cart.ts
+- lyra-fashion/src/components/shop/add-to-cart.tsx
+- lyra-fashion/src/components/layout/header.tsx
+- lyra-fashion/src/app/(shop)/cart/page.tsx
+- lyra-fashion/tests/cart.test.ts
+- lyra-fashion/src/app/layout.tsx
+- lyra-fashion/jest.config.js

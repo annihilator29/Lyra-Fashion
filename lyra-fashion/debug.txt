@@ -1,0 +1,12 @@
+Seeding cart...
+Starting empty cart test
+Cart seeded.
+Cart seeded.
+Cart seeded.
+Cart seeded.
+Storage: {"state":{"items":[{"id":"test-item-1","productId":"prod-1","name":"Test Product","price":1000,"slug":"test-product","quantity":1,"size":"M","color":"Red"}]},"version":0}
+Cart is empty on /cart
+Cart has items.
+Clicking Proceed to Checkout...
+Clicked. Waiting for URL...
+Current URL: http://localhost:3000/cart

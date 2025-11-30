@@ -1,0 +1,46 @@
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Lyra Fashion" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Lyra Fashion
+      - navigation [ref=e6]:
+        - link "Shop" [ref=e7] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e8] [cursor=pointer]:
+          - /url: /about
+        - link "Cart" [ref=e9] [cursor=pointer]:
+          - /url: /cart
+          - img
+          - generic [ref=e10]: Cart
+  - main [ref=e11]:
+    - generic [ref=e14]:
+      - generic [ref=e15]:
+        - generic [ref=e16]: Login
+        - generic [ref=e17]: Sign in to your account
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e20]:
+            - text: Email
+            - textbox "Email" [disabled]:
+              - /placeholder: you@example.com
+              - text: nonexistent@example.com
+          - generic [ref=e21]:
+            - text: Password
+            - textbox "Password" [disabled]:
+              - /placeholder: ••••
+              - text: wrongpassword
+        - generic [ref=e22]:
+          - button "Logging in..." [disabled]
+          - paragraph [ref=e23]:
+            - text: Don't have an account?
+            - link "Sign up" [ref=e24] [cursor=pointer]:
+              - /url: /signup
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e30] [cursor=pointer]:
+    - img [ref=e31]
+  - alert [ref=e34]
+```

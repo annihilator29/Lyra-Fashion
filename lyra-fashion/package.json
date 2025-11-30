@@ -11,7 +11,9 @@
     "validate:seed": "tsx scripts/validate-seeding.ts",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -31,7 +33,8 @@
     "tailwind-merge": "^3.4.0",
     "use-debounce": "^10.0.4",
     "vitest": "^4.0.14",
-    "zod": "^3.25.76"
+    "zod": "^3.25.76",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",

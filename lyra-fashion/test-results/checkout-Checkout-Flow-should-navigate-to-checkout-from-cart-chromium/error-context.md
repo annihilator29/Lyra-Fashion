@@ -1,0 +1,69 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Lyra Fashion" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e5]: Lyra Fashion
+      - navigation [ref=e6]:
+        - link "Shop" [ref=e7] [cursor=pointer]:
+          - /url: /shop
+        - link "About" [ref=e8] [cursor=pointer]:
+          - /url: /about
+        - link "Cart 1" [ref=e9] [cursor=pointer]:
+          - /url: /cart
+          - img
+          - generic [ref=e10]: Cart
+          - generic [ref=e11]: "1"
+  - main [ref=e12]:
+    - generic [ref=e13]:
+      - heading "Shopping Cart" [level=1] [ref=e14]
+      - generic [ref=e15]:
+        - generic [ref=e16]:
+          - generic [ref=e17]:
+            - generic [ref=e19]: No Image
+            - generic [ref=e20]:
+              - generic [ref=e21]:
+                - generic [ref=e22]:
+                  - heading "Test Product" [level=3] [ref=e23]:
+                    - link "Test Product" [ref=e24] [cursor=pointer]:
+                      - /url: /shop/test-product
+                  - generic [ref=e25]:
+                    - generic [ref=e26]: "Size: M"
+                    - generic [ref=e27]: "Color: Red"
+                - paragraph [ref=e28]: $10.00
+              - generic [ref=e29]:
+                - generic [ref=e30]:
+                  - button "Decrease quantity" [disabled] [ref=e31]:
+                    - img [ref=e32]
+                  - generic [ref=e33]: "1"
+                  - button "Increase quantity" [ref=e34]:
+                    - img [ref=e35]
+                - button "Remove" [ref=e36]:
+                  - img
+                  - text: Remove
+          - button "Clear Cart" [ref=e38]
+        - generic [ref=e40]:
+          - heading "Order Summary" [level=2] [ref=e41]
+          - generic [ref=e42]:
+            - generic [ref=e43]:
+              - generic [ref=e44]: Subtotal
+              - generic [ref=e45]: $10.00
+            - generic [ref=e46]:
+              - generic [ref=e47]: Shipping
+              - generic [ref=e48]: Free
+            - generic [ref=e49]:
+              - generic [ref=e50]: Total
+              - generic [ref=e51]: $10.00
+            - link "Proceed to Checkout" [active] [ref=e52] [cursor=pointer]:
+              - /url: /checkout
+              - text: Proceed to Checkout
+              - img
+            - paragraph [ref=e53]: Taxes calculated at checkout.
+  - region "Notifications alt+T"
+  - button "Open Next.js Dev Tools" [ref=e59] [cursor=pointer]:
+    - img [ref=e60]
+  - alert [ref=e63]
+```
