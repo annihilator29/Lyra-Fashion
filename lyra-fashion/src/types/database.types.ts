@@ -120,6 +120,89 @@ export interface ProfileUpdate {
 }
 
 /**
+ * Order status type
+ */
+export type OrderStatus = 'pending' | 'paid' | 'production' | 'quality_check' | 'shipped' | 'delivered' | 'cancelled';
+
+/**
+ * Shipping address interface
+ */
+export interface ShippingAddress {
+  name: string;
+  line1: string;
+  line2?: string | null;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+}
+
+/**
+ * Order row
+ */
+export interface Order {
+  id: string;
+  user_id: string | null;
+  status: OrderStatus;
+  total_amount: number; // in cents
+  currency: string;
+  stripe_payment_intent_id: string | null;
+  shipping_address: ShippingAddress | null; // JSONB
+  created_at: string;
+  updated_at: string;
+}
+
+export interface OrderInsert {
+  id?: string;
+  user_id?: string | null;
+  status?: OrderStatus;
+  total_amount: number;
+  currency?: string;
+  stripe_payment_intent_id?: string | null;
+  shipping_address?: ShippingAddress | null;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface OrderUpdate {
+  user_id?: string | null;
+  status?: OrderStatus;
+  total_amount?: number;
+  currency?: string;
+  stripe_payment_intent_id?: string | null;
+  shipping_address?: ShippingAddress | null;
+  updated_at?: string;
+}
+
+/**
+ * Order Item row
+ */
+export interface OrderItem {
+  id: string;
+  order_id: string;
+  product_id: string | null;
+  quantity: number;
+  price_at_purchase: number; // in cents
+  created_at: string;
+}
+
+export interface OrderItemInsert {
+  id?: string;
+  order_id: string;
+  product_id?: string | null;
+  quantity: number;
+  price_at_purchase: number;
+  created_at?: string;
+}
+
+export interface OrderItemUpdate {
+  order_id?: string;
+  product_id?: string | null;
+  quantity?: number;
+  price_at_purchase?: number;
+}
+
+/**
  * Complete database schema
  */
 export interface Database {
@@ -134,6 +217,16 @@ export interface Database {
         Row: Profile;
         Insert: ProfileInsert;
         Update: ProfileUpdate;
+      };
+      orders: {
+        Row: Order;
+        Insert: OrderInsert;
+        Update: OrderUpdate;
+      };
+      order_items: {
+        Row: OrderItem;
+        Insert: OrderItemInsert;
+        Update: OrderItemUpdate;
       };
     };
     Views: {

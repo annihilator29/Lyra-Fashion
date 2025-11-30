@@ -166,3 +166,10 @@ create table order_items (
 -   **Unit:** Test CartStore logic (reducers).
 -   **Integration:** Test Stripe Webhook handler with mocked Stripe signature.
 -   **E2E:** Full checkout flow using Stripe Test Cards.
+
+## Post-Review Follow-ups
+
+- **Story 5.4** (Order Confirmation):
+  - Add payment amount validation in webhook handler to verify amount matches expected cart total
+  - Fix quantity handling in webhook to properly extract from payment intent metadata
+  - Create integration tests for webhook handler to verify order creation and email sending

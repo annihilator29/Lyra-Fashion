@@ -66,13 +66,13 @@ development_status:
   epic-5: contexted
   5-1-shopping-cart-management: done
   5-2-checkout-flow: done
-  5-3-payment-integration-stripe: ready-for-dev
-  5-4-order-confirmation: ready-for-dev
+  5-3-payment-integration-stripe: done
+  5-4-order-confirmation: done
   epic-5-retrospective: optional
 
   epic-6: contexted
-  6-1-order-history-status: ready-for-dev
-  6-2-production-status-tracking: ready-for-dev
+  6-1-order-history-status: done
+  6-2-production-status-tracking: review
   epic-6-retrospective: optional
 
   epic-7: contexted

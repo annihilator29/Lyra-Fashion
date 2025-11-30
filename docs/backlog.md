@@ -5,6 +5,12 @@
 | Date | Story | Epic | Type | Severity | Owner | Status | Notes |
 |------|-------|------|------|----------|-------|--------|-------|
 | 2025-11-29 | 2.5 | 2 | Bug | High | TBD | **Resolved** | Update story context XML to reflect actual task completion status (docs/stories/2-5-product-detail-page-pdp-core-info.context.xml) - Context XML shows tasks as incomplete ([ ]) while implementation is actually complete - **UPDATED TO [x] COMPLETE** |
+| 2025-11-30 | 5.4 | 5 | TechDebt | Med | TBD | **Resolved** | Add payment amount validation in webhook handler to verify amount matches expected cart total (AC #5) [file: lyra-fashion/src/app/api/webhooks/stripe/route.ts:60-70] - **IMPLEMENTED** |
+| 2025-11-30 | 5.4 | 5 | Bug | Med | TBD | **Resolved** | Fix quantity handling in webhook to properly extract from payment intent metadata (AC #5) [file: lyra-fashion/src/app/api/webhooks/stripe/route.ts:64-66] - **IMPLEMENTED** |
+| 2025-11-30 | 5.4 | 5 | Enhancement | Med | TBD | **Resolved** | Create integration tests for webhook handler to verify order creation and email sending (AC #5) [file: lyra-fashion/tests/e2e/order-confirmation.spec.ts] - **IMPLEMENTED** |
+| 2025-11-30 | 6.1 | 6 | Enhancement | Med | TBD | Open | Implement production status tracking timeline as specified in Epic tech spec (AC #6.2.2) [file: lyra-fashion/src/app/account/orders/[id]/page.tsx] |
+| 2025-11-30 | 6.1 | 6 | TechDebt | Med | TBD | Open | Add missing E2E tests for authenticated users with order data [file: lyra-fashion/tests/e2e/order-history.spec.ts] |
+| 2025-11-30 | 6.1 | 6 | TechDebt | Low | TBD | Open | Improve shipping_address typing for better type safety [file: lyra-fashion/src/types/database.types.ts:200-207] |
 
 ---
 

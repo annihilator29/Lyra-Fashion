@@ -5,9 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ShippingForm } from '@/components/checkout/shipping-form';
 import { OrderSummary } from '@/components/checkout/order-summary';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { StripeProvider } from '@/components/checkout/stripe-provider';
+import { PaymentForm } from '@/components/checkout/payment-form';
+import { createPaymentIntent } from '@/app/actions/checkout';
+import { useCartStore } from '@/lib/store/cart';
+import { Loader2 } from 'lucide-react';
 
 export default function CheckoutPage() {
+  const [step, setStep] = useState<'shipping' | 'payment'>('shipping');
   const [shippingInfo, setShippingInfo] = useState({
     name: '',
     address: '',
@@ -16,7 +21,12 @@ export default function CheckoutPage() {
     country: '',
   });
   const [isFormValid, setIsFormValid] = useState(false);
-  const router = useRouter();
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [paymentAmount, setPaymentAmount] = useState<number>(0);
+  const [isCreatingIntent, setIsCreatingIntent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const { items } = useCartStore();
 
   const handleShippingInfoChange = (data: any) => {
     setShippingInfo(data);
@@ -26,28 +36,95 @@ export default function CheckoutPage() {
     setIsFormValid(isValid);
   };
 
-  const handleProceedToPayment = () => {
-    // In a real app, this would navigate to the payment page
-    // For now, we'll just show an alert
-    alert('Proceeding to payment with the provided shipping information.');
+  const handleProceedToPayment = async () => {
+    setIsCreatingIntent(true);
+    setError(null);
+
+    try {
+      // Prepare cart items for server validation
+      const cartItems = items.map(item => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        variantId: item.variantId,
+        size: item.size,
+        color: item.color,
+      }));
+
+      // Create payment intent on server
+      const result = await createPaymentIntent(cartItems);
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+
+      if (result.clientSecret && result.amount) {
+        setClientSecret(result.clientSecret);
+        setPaymentAmount(result.amount);
+        setStep('payment');
+      }
+    } catch (err: any) {
+      setError(err?.message || 'Failed to initialize payment');
+    } finally {
+      setIsCreatingIntent(false);
+    }
+  };
+
+  const handlePaymentError = (errorMsg: string) => {
+    setError(errorMsg);
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-      
+
+      {/* Progress indicator */}
+      <div className="flex items-center justify-center mb-8">
+        <div className="flex items-center">
+          <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step === 'shipping' ? 'bg-black text-white' : 'bg-gray-300'}`}>
+            1
+          </div>
+          <span className="ml-2 text-sm font-medium">Shipping</span>
+        </div>
+        <div className="w-16 h-0.5 bg-gray-300 mx-4" />
+        <div className="flex items-center">
+          <div className={`flex items-center justify-center w-8 h-8 rounded-full ${step === 'payment' ? 'bg-black text-white' : 'bg-gray-300'}`}>
+            2
+          </div>
+          <span className="ml-2 text-sm font-medium">Payment</span>
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-        {/* Left Column: Shipping Form */}
+        {/* Left Column: Shipping Form or Payment Form */}
         <div>
           <Card>
             <CardHeader>
-              <CardTitle>Shipping Information</CardTitle>
+              <CardTitle>
+                {step === 'shipping' ? 'Shipping Information' : 'Payment Details'}
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <ShippingForm 
-                onShippingInfoChange={handleShippingInfoChange}
-                onFormValidation={handleFormValidation}
-              />
+              {step === 'shipping' ? (
+                <ShippingForm
+                  onShippingInfoChange={handleShippingInfoChange}
+                  onFormValidation={handleFormValidation}
+                />
+              ) : clientSecret ? (
+                <StripeProvider clientSecret={clientSecret}>
+                  <PaymentForm
+                    amount={paymentAmount}
+                    onError={handlePaymentError}
+                  />
+                </StripeProvider>
+              ) : null}
+
+              {/* Error message */}
+              {error && (
+                <div className="mt-4 rounded-md bg-red-50 p-4 text-sm text-red-800">
+                  {error}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -60,15 +137,35 @@ export default function CheckoutPage() {
             </CardHeader>
             <CardContent>
               <OrderSummary />
-              <div className="mt-6">
-                <Button 
-                  className="w-full" 
-                  onClick={handleProceedToPayment}
-                  disabled={!isFormValid}
-                >
-                  Proceed to Payment
-                </Button>
-              </div>
+              {step === 'shipping' && (
+                <div className="mt-6">
+                  <Button
+                    className="w-full"
+                    onClick={handleProceedToPayment}
+                    disabled={!isFormValid || isCreatingIntent}
+                  >
+                    {isCreatingIntent ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Preparing payment...
+                      </>
+                    ) : (
+                      'Proceed to Payment'
+                    )}
+                  </Button>
+                </div>
+              )}
+              {step === 'payment' && (
+                <div className="mt-6">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => setStep('shipping')}
+                  >
+                    Back to Shipping
+                  </Button>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
@@ -76,3 +173,4 @@ export default function CheckoutPage() {
     </div>
   );
 }
+

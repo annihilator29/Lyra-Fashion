@@ -110,3 +110,9 @@ Epic 6, "Order History & Status," focuses on the post-purchase experience for cu
 
 -   **Unit:** Test `OrderService` fetching logic.
 -   **E2E:** User logs in, goes to orders, checks details of a specific order.
+
+## Post-Review Follow-ups
+
+- [ ] Implement production status tracking timeline as specified in AC #6.2.2 for Story 6.1 - Missing detailed timeline visualization showing steps: Placed -> Production -> Quality Check -> Shipped -> Delivered [file: lyra-fashion/src/app/account/orders/[id]/page.tsx]
+- [ ] Add missing E2E tests for authenticated users with order data for Story 6.1 [file: lyra-fashion/tests/e2e/order-history.spec.ts]
+- [ ] Improve shipping_address typing for better type safety for Story 6.1 [file: lyra-fashion/src/types/database.types.ts:200-207]
